@@ -23,7 +23,7 @@
         padding-top: 30px;
         margin: 130px auto;
         width:100%;
-        height: 200px;
+        height: 600px;
         max-width: initial;
         overflow: hidden;
         white-space: nowrap;
@@ -37,16 +37,16 @@
     }
 
     .card {
+        position: relative;
         color: #B5E853;
         height: 70px;
         width: 70px;
         box-sizing: border-box;
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: #888;
         display: inline-block;
         font-size: 46px;
         text-align: center;
         padding-top: 12px;
-        box-shadow: 0px 5px 11px 1px #999;
         transition: transform 100ms linear;
     }
 
@@ -59,8 +59,41 @@
         margin-left: 20px;
     }
 
+    .shadow {
+        color: #B5E853;
+        opacity: 0.4;
+        height: 70px;
+        width: 70px;
+        box-sizing: border-box;
+        bottom: -70px;
+        left: 0;
+        display: inline-block;
+        font-size: 46px;
+        text-align: center;
+        position: absolute;
+        transform: rotateX(180deg);
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&amp;0.23+0,0.35+23,0.58+59,0.67+81,1+99 */
+        background: -moz-linear-gradient(top,  rgba(0,0,0,0.23) 0%, rgba(0,0,0,0.35) 23%, rgba(0,0,0,0.58) 59%, rgba(0,0,0,0.67) 81%, rgba(0,0,0,1) 99%, rgba(0,0,0,1) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.23)), color-stop(23%,rgba(0,0,0,0.35)), color-stop(59%,rgba(0,0,0,0.58)), color-stop(81%,rgba(0,0,0,0.67)), color-stop(99%,rgba(0,0,0,1)), color-stop(100%,rgba(0,0,0,1))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  rgba(0,0,0,0.23) 0%,rgba(0,0,0,0.35) 23%,rgba(0,0,0,0.58) 59%,rgba(0,0,0,0.67) 81%,rgba(0,0,0,1) 99%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  rgba(0,0,0,0.23) 0%,rgba(0,0,0,0.35) 23%,rgba(0,0,0,0.58) 59%,rgba(0,0,0,0.67) 81%,rgba(0,0,0,1) 99%,rgba(0,0,0,1) 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  rgba(0,0,0,0.23) 0%,rgba(0,0,0,0.35) 23%,rgba(0,0,0,0.58) 59%,rgba(0,0,0,0.67) 81%,rgba(0,0,0,1) 99%,rgba(0,0,0,1) 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  rgba(0,0,0,0.23) 0%,rgba(0,0,0,0.35) 23%,rgba(0,0,0,0.58) 59%,rgba(0,0,0,0.67) 81%,rgba(0,0,0,1) 99%,rgba(0,0,0,1) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
+    }
+
+    .bshadow {
+        position: absolute;
+        bottom: -11px;
+        width: 100%;
+        height: 34px;
+        transform: translateZ(-100px) rotateX(82deg);
+        box-shadow: 0px 18px 30px 1px rgba(167, 167, 167, 0.28);
+    }
+
     .wrap {
-        height: 200px;
+        height: 400px;
         position: relative;
     }
     .title {
