@@ -4,6 +4,7 @@
     var cardWidth = 70;
     var cardHeight = 70;
     var gap = 20;
+    var placeholder;
 
     // Scrolling configs
     var dsThreshold = 20;
@@ -11,11 +12,23 @@
     var zOffset = 500;
     var spreadSqr = 70000;
 
+
     var fillCards = function(el, cardNum) {
         for(var i = 0; i < cardNum; i++) {
             var card = document.createElement("div");
-            card.textContent = cards.length;
+            card.textContent = cards.length - placeholder;
             card.classList.add("card");
+            el.append(card);
+            offsetCache.push($(card).offset().left);
+            cards.push($(card));
+        }
+    };
+
+    var fillPlaceholders = function(el,  num) {
+        for(var i = 0; i < num; i++) {
+            var card = document.createElement("div");
+            card.classList.add("card");
+            card.style['visibility'] = 'hidden';
             el.append(card);
             offsetCache.push($(card).offset().left);
             cards.push($(card));
@@ -117,7 +130,10 @@
 
     $.fn.slider = function() {
         var el  = $(this);
+        placeholder = parseInt(el.width() /(2*  (cardWidth + gap)));
+        fillPlaceholders(el, placeholder);
         loadCards(el, 100);
+        fillPlaceholders(el, placeholder);
         initSmoothScrolling(el);
         transformCards(el);
         el.scroll( function(e) {

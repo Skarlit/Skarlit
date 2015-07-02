@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="191cd67e-22ba-46ba-bbf5-b5cfb37b87bd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stylesheets/github-dark.css" afterPath="$PROJECT_DIR$/stylesheets/github-dark.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/experiments/slider.html" afterPath="$PROJECT_DIR$/experiments/slider.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/javascripts/slider.js" afterPath="$PROJECT_DIR$/javascripts/slider.js" />
     </list>
@@ -50,8 +49,8 @@
           <file leaf-file-name="slider.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/experiments/slider.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.30459127">
-                  <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+                <state vertical-scroll-proportion="0.2474804">
+                  <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
                   <folding />
                 </state>
               </provider>
@@ -84,8 +83,8 @@
           <file leaf-file-name="slider.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/javascripts/slider.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.7040261">
-                  <caret line="113" column="31" selection-start-line="113" selection-start-column="31" selection-end-line="113" selection-end-column="31" />
+                <state vertical-scroll-proportion="0.75952125">
+                  <caret line="135" column="42" selection-start-line="135" selection-start-column="42" selection-end-line="135" selection-end-column="42" />
                   <folding />
                 </state>
               </provider>
@@ -111,8 +110,8 @@
         <option value="$PROJECT_DIR$/stylesheets/stylesheet.css" />
         <option value="$PROJECT_DIR$/javascripts/three.min.js" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/javascripts/slider.js" />
         <option value="$PROJECT_DIR$/stylesheets/github-dark.css" />
+        <option value="$PROJECT_DIR$/javascripts/slider.js" />
         <option value="$PROJECT_DIR$/experiments/slider.html" />
       </list>
     </option>
@@ -447,14 +446,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/javascripts/slider.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7040261">
-          <caret line="113" column="31" selection-start-line="113" selection-start-column="31" selection-end-line="113" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stylesheets/github-dark.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -479,10 +470,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/javascripts/slider.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.75952125">
+          <caret line="135" column="42" selection-start-line="135" selection-start-column="42" selection-end-line="135" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/experiments/slider.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30459127">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.2474804">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
           <folding />
         </state>
       </provider>
