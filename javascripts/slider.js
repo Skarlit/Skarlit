@@ -22,9 +22,9 @@
             shadow.classList.add('shadow');
             shadow.textContent = cards.length - placeholder;
             card.appendChild(shadow);
-            var boxShadow = document.createElement("div");
-            boxShadow.classList.add("bshadow");
-            card.appendChild(boxShadow);
+            //var boxShadow = document.createElement("div");
+            //boxShadow.classList.add("bshadow");
+            //card.appendChild(boxShadow);
             el.append(card);
             offsetCache.push($(card).offset().left);
             cards.push($(card));
