@@ -115,12 +115,3 @@
 }
 
 
-.back {
-    display: block;
-    padding: 0px 20px;
-    line-height: 50px;
-}
-
-.back:hover {
-    cursor: pointer;
-}
