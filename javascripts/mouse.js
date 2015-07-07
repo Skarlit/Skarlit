@@ -27,119 +27,126 @@ window.onload = function() {
     var mousePos = new THREE.Vector3();
     var mouseVelocity = new THREE.Vector3();
     var deltaT = 0.1;
-    var acceleration = new THREE.Vector3(0, -9.8, 0);
+    var acceleration = new THREE.Vector3(0, -0.98, 0);
+
+    var bottomLimit = ( function() {
+        return ( new THREE.Vector3(0, -1, 0.5)).unproject(camera).y;
+    })();
 
 
-    // Particle Class
-    function Particle() {
-        this.pos = new THREE.Vector3();
-        this.velocity = new THREE.Vector3();
-       this.reset();
-    }
-
-    Particle.prototype.reset = function() {
-        this.pos.set(mousePos.x + 2, mousePos.y - 5, 0);
-        this.velocity.set(0, 0, 0);
-        this.lifeTime = 180;
-        this.emitted = false;
-    };
-
-    Particle.prototype.emit = function() {
-        if(!this.emitted) {
-            this.emitted = true;
-            this.pos.set(mousePos.x, mousePos.y, 0);
-            this.velocity.set(0.2*mouseVelocity.x,  - 10* Math.random(), 0);
+    // Particle System Class
+    function ParticleSystem(n, mousePos) {
+        this.n = n;
+        this.pos = new Array(n);
+        this.velocity = new Array(n);
+        this.lifeTimes = new Array(n);
+        this.emitted = new Array(n);
+        this.geometry = new THREE.Geometry();
+        this.geometry.vertices = this.pos;
+        this.emitIndex = 0;
+        for(var i = 0; i < n; i++) {
+            this.pos[i] = new THREE.Vector3(mousePos.x + 2, mousePos.y - 5, 0);
+            this.velocity[i] = new THREE.Vector3(0, 0, 0);
+            this.lifeTimes[i] = 180;
+            this.emitted[i] = 0.0;
         }
     };
 
+    ParticleSystem.prototype.bindMaterial = function(material) {
+        this.system =  new THREE.PointCloud(this.geometry, material);
+    };
+
+    ParticleSystem.prototype.reset = function(i, mousePos) {
+        this.pos[i].set(mousePos.x + 2, mousePos.y - 5, 0);
+        this.velocity[i].set(0, 0, 0);
+        this.lifeTimes[i] = 180;
+        this.emitted[i] = 0.0;
+    };
+
+    ParticleSystem.prototype.emit = function() {
+        if (!this.emitted[this.emitIndex]) {
+            this.emitted[this.emitIndex] = 1.0;
+            this.emitIndex = (this.emitIndex + 1) % this.n;
+            this.velocity[this.emitIndex].set(20*Math.random()-10, 0, 0);
+        }
+    };
+
+    //ParticleSystem.prototype.
     var particleNum = 200;
-    var emitIndex = 0;
-    var cloudPos = new THREE.Geometry();
-    var particles = new Array(particleNum);
-
-    // Need to build particle system class to handle passing the attributes.
-    
-    for(var i = 0; i < particleNum; i++) {
-        particles[i] = new Particle();
-        cloudPos.vertices.push( particles[i].pos);
-    }
-
-    //var material = new THREE.PointCloudMaterial({
-    //    equation: THREE.MaxEquation,
-    //    blendSrc: THREE.SrcAlphaSaturateFactor,
-    //    blendDst: THREE.OneFactor,
-    //    blending:  THREE.CustomBlending,
-    //    opacity: 0.5,
-    //    transparent: true,
-    //    blendDst: THREE.OneFactor,
-    //    size: 200,
-    //    color: '#b5e853',
-    //    fog: true,
-    //    map: THREE.ImageUtils.loadTexture('img/star.png')
-    //});
-
-    //Shaders
+    var pSystem = new ParticleSystem(particleNum, mousePos);
     var vertexShader = [
         "uniform vec3 color;",
-        "uniform float time;",
+        "attribute float lifeTime;",
+        "attribute float emitted;",
         "varying vec3 vColor;",
         "varying float vTime;",
+        "varying float vLifeTime;",
+        "varying float vEmitted;",
         "void main() {",
-        "vColor = color;",
-        "vTime = time;",
-        "gl_PointSize = 150.0;",
-        "gl_Position = projectionMatrix * modelViewMatrix *vec4(position, 1.0);",
+            "vColor = color;",
+            "vLifeTime = lifeTime;",
+            "vEmitted = emitted;",
+            "gl_PointSize = 150.0;",
+            "gl_Position = projectionMatrix * modelViewMatrix *vec4(position, 1.0);",
         "}"
     ].join("\n");
-
     var fragShader = [
         "uniform sampler2D texture;",
+        "uniform float time;",
+        "varying float vLifeTime;",
+        "varying float vEmitted;",
         "varying vec3 vColor;",
         "float alpha;",
         "varying float vTime;",
         "void main() {",
             "gl_FragColor = texture2D(texture, gl_PointCoord);",
-            "if (gl_FragColor.x * gl_FragColor.y * gl_FragColor.z <= 0.005) {",
-                "alpha = 0.0;",
-            "} else { alpha = gl_FragColor.y; }",
-            "gl_FragColor = vec4(vColor, alpha) * gl_FragColor ;",
+            "gl_FragColor = vec4(vColor + vec3(sin(vLifeTime*0.1), cos(vLifeTime*0.1), tan(vLifeTime*0.1)) ,  gl_FragColor.y *  vEmitted *exp((vLifeTime/180.0 - 1.0)*0.5)) * gl_FragColor ;",
         "}"
     ].join("\n");
-
     var material = new THREE.ShaderMaterial({
         uniforms: {
             time: {type: "f", value: 1.0},
             color: {type: "c", value: new THREE.Color(0xb5e853)},
             texture: {type: 't', value: THREE.ImageUtils.loadTexture('img/star.png')}
         },
+        attributes:  {
+            lifeTime: {type: "f", value: pSystem.lifeTimes},
+            emitted: {type: "f", value: pSystem.emitted}
+        },
         vertexShader:  vertexShader,
         fragmentShader: fragShader,
-        //equation: THREE.AddEquation,
-        //blendSrc: THREE.SrcAlphaSaturateFactor,
-        //blendDst: THREE.OneFactor,
         blending:  THREE.AdditiveBlending,
         depthTest:      false,
         transparent:    true
     });
 
-    var cloud = new THREE.PointCloud(cloudPos, material);
-    scene.add(cloud);
+    pSystem.bindMaterial(material);
+    scene.add(pSystem.system);
 
     function update() {
-        var cloudVec3 = cloud.position;
+        var cloudVec3 = pSystem.system.position;
         for(var i = 0; i < particleNum; i++) {
-            if (particles[i].emitted) {
-                particles[i].velocity.add(acceleration);
-                particles[i].pos.add(particles[i].velocity).add(acceleration.multiplyScalar(deltaT));
+            if (pSystem.emitted[i]) {
+                pSystem.velocity[i].add(acceleration);
+                pSystem.pos[i].add(pSystem.velocity[i]);
+                if (pSystem.pos[i].y < bottomLimit + 75) {
+                    if (pSystem.velocity[i].y * pSystem.velocity[i].y < 1) {
+                        pSystem.reset(i, mousePos);
+                    } else {
+                        pSystem.velocity[i].set( 10*(Math.random() - 0.5) -  pSystem.velocity[i].x,  pSystem.velocity[i].y * -0.5*(1+Math.random()), 0);
+                    }
+                }
             } else {
-                particles[i].reset();
+                pSystem.reset(i, mousePos);
             }
-            if (particles[i].lifeTime < 0) {
-                particles[i].reset();
+            if (pSystem.lifeTimes[i] < 0) {
+                pSystem.reset(i, mousePos);
             }
-            particles[i].lifeTime -= 1;
+            pSystem.lifeTimes[i] -= 1;
         }
-        cloud.geometry.verticesNeedUpdate = true;
+        pSystem.geometry.verticesNeedUpdate = true;
+        pSystem.system.material.attributes.lifeTime.needsUpdate = true;
+        pSystem.system.material.attributes.emitted.needsUpdate = true;
     };
 
     function render () {
@@ -149,7 +156,7 @@ window.onload = function() {
         t++;
     };
 
-    var mouseMoveRate = 20;
+    var mouseMoveRate = 5;
     var mouseMoveCount = 0;
 
     window.addEventListener('mousemove', function(e) {
@@ -162,8 +169,7 @@ window.onload = function() {
         mousePos = current;
         if (mouseMoveCount > mouseMoveRate) {
             mouseMoveCount = 0;
-            particles[emitIndex].emit();
-            emitIndex = (emitIndex + 1) % particleNum;
+            pSystem.emit();
         }
         mouseMoveCount++;
     });
