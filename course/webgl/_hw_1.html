@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Tweak</title>
+    <script src="util/mv.js"></script>
+    <script src="util/initShaders.js"></script>
+    <script src="util/webgl-utils.js"></script>
+    <script id="vs" type="v-shader">
+        attribute vec2 vPosition;
+        void main() {
+          gl_Position = vec4(vPosition, 0.0, 1.0);
+        }
+    </script>
+    <script id="fs" type="f-shader">
+        precision mediump float;
+        void main() {
+           gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+        }
+    </script>
+</head>
+<body>
+    <label style="display:block;"> Steps:
+        <input id="slice" type="range" min="0" max="10" step="1" value="0"/>
+    </label>
+    <canvas id="canvas" height="300" width="400" style="display:block"></canvas>
+    <script>
+        // p = [ax,ay,bx, by, cx, cy]
+        //      0  1  2   3   4   5
+
+        // mid = [mid of a-b,  mid of a-c, mid of b-c]
+
+        var setting = {
+            includeMid: false,
+            division: 0
+        };
+
+        var gl;
+        var program;
+
+        function tesselate(p) {
+            var mid = new Array(6);
+            mid[0] = (p[0] + p[2]) / 2;
+            mid[1] = (p[1] + p[3]) / 2;
+            mid[2] = (p[0] + p[4]) / 2;
+            mid[3] = (p[1] + p[5]) / 2;
+            mid[4] = (p[2] + p[4]) / 2;
+            mid[5] = (p[3] + p[5]) / 2;
+
+            return mid;
+        }
+
+        function recursiveTesselate(n, p, vertexBuffer) {
+            if (n == 0) {
+                vertexBuffer.push.apply(vertexBuffer, p);
+                return;
+            }
+            var mid = tesselate(p);
+            if (setting.includeMid) vertexBuffer.push.apply(vertexBuffer, mid);
+            //                              a         a-b             a-c
+            recursiveTesselate(n-1, [p[0], p[1], mid[0], mid[1], mid[2], mid[3]], vertexBuffer);
+            //                            b           a-b             b-c
+            recursiveTesselate(n-1, [p[2], p[3], mid[0], mid[1], mid[4], mid[5]], vertexBuffer);
+            //                            c           b-c             a-c
+            recursiveTesselate(n-1, [p[4], p[5], mid[4], mid[5], mid[2], mid[3]], vertexBuffer);
+        }
+
+        function renderData() {
+            var vertexBuffer = [];
+            recursiveTesselate(setting.division, [-1, -1, 0, 1, 1, -1], vertexBuffer);
+            var bufferId = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+            gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(vertexBuffer), gl.STATIC_DRAW);
+            console.log(vertexBuffer);
+            var vPosition = gl.getAttribLocation( program, "vPosition" );
+            gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
+            gl.enableVertexAttribArray( vPosition );
+
+            gl.clear( gl.COLOR_BUFFER_BIT );
+            gl.drawArrays( gl.TRIANGLES, 0, parseInt(vertexBuffer.length / 2));
+        }
+
+        function initControl () {
+            document.getElementById('slice').addEventListener('input', function(e) {
+                setting.division = e.target.value;
+                renderData();
+            });
+        }
+
+        window.onload = function () {
+            canvas = document.getElementById( "canvas" );
+
+            gl = WebGLUtils.setupWebGL( canvas );
+            if ( !gl ) { alert( "WebGL isn't available" ); }
+            gl.viewport( 0, 0, canvas.width, canvas.height );
+            gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
+            program = initShaders( gl, "vs", "fs" );
+            gl.useProgram( program );
+            initControl();
+            renderData();
+        };
+    </script>
+</body>
+</html>
