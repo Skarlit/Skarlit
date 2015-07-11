@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="191cd67e-22ba-46ba-bbf5-b5cfb37b87bd" name="Default" comment="">
-      <change type="MOVED" beforePath="F:\Skarlit.github.io\course\webgl\_hw_1.html" afterPath="$PROJECT_DIR$/course/webgl/hw_1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/course/webgl/hw_1.html" afterPath="$PROJECT_DIR$/course/webgl/hw_1.html" />
     </list>
     <ignored path="Skarlit.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -22,139 +22,119 @@
     <favorites_list name="Skarlit.github.io" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.87456447">
+    <splitter split-orientation="horizontal" split-proportion="0.723262">
       <split-first>
-        <splitter split-orientation="horizontal" split-proportion="0.66205835">
-          <split-first>
-            <leaf>
-              <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/index.html">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="-13.730769">
-                      <caret line="21" column="7" selection-start-line="20" selection-start-column="27" selection-end-line="21" selection-end-column="7" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="coursework.html" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/course/webgl/coursework.html">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="-17.0">
-                      <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="hw_1.html" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/course/webgl/hw_1.html">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.52407616">
-                      <caret line="84" column="50" selection-start-line="84" selection-start-column="50" selection-end-line="84" selection-end-column="50" />
-                      <folding>
-                        <element signature="n#style#0;n#label#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                        <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="initShaders.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/course/webgl/util/initShaders.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.0">
-                      <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-                      <folding>
-                        <element signature="n#!!doc" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="webgl-utils.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/course/webgl/util/webgl-utils.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.0">
-                      <caret line="147" column="4" selection-start-line="147" selection-start-column="4" selection-end-line="147" selection-end-column="4" />
-                      <folding>
-                        <element signature="n#!!doc" expanded="true" />
-                        <marker date="1436500336328" expanded="true" signature="2670:2720" placeholder="..." />
-                        <marker date="1436500336328" expanded="true" signature="2791:2835" placeholder="..." />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="slider.html" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/experiments/slider.html">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="8.345454">
-                      <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="context.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/javascripts/context.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.0">
-                      <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="github-dark.css" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/stylesheets/github-dark.css">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.0">
-                      <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="mouse.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/javascripts/mouse.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.0">
-                      <caret line="82" column="77" selection-start-line="82" selection-start-column="77" selection-end-line="82" selection-end-column="77" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-first>
-          <split-second>
-            <leaf>
-              <file leaf-file-name="hw_1.html" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/course/webgl/hw_1.html">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state vertical-scroll-proportion="0.5431131">
-                      <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-                      <folding>
-                        <element signature="n#style#0;n#label#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                        <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-second>
-        </splitter>
+        <leaf>
+          <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-13.730769">
+                  <caret line="21" column="7" selection-start-line="20" selection-start-column="27" selection-end-line="21" selection-end-column="7" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="coursework.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/course/webgl/coursework.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-17.0">
+                  <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="hw_1.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/course/webgl/hw_1.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.6655093">
+                  <caret line="82" column="37" selection-start-line="82" selection-start-column="37" selection-end-line="82" selection-end-column="37" />
+                  <folding>
+                    <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="initShaders.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/course/webgl/util/initShaders.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+                  <folding>
+                    <element signature="n#!!doc" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="webgl-utils.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/course/webgl/util/webgl-utils.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="147" column="4" selection-start-line="147" selection-start-column="4" selection-end-line="147" selection-end-column="4" />
+                  <folding>
+                    <element signature="n#!!doc" expanded="true" />
+                    <marker date="1436500336328" expanded="true" signature="2670:2720" placeholder="..." />
+                    <marker date="1436500336328" expanded="true" signature="2791:2835" placeholder="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="slider.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/experiments/slider.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="8.345454">
+                  <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="context.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/javascripts/context.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="github-dark.css" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/stylesheets/github-dark.css">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="mouse.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/javascripts/mouse.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="82" column="77" selection-start-line="82" selection-start-column="77" selection-end-line="82" selection-end-column="77" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="mouse.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/javascripts/mouse.js">
+          <file leaf-file-name="hw_1.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/course/webgl/hw_1.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.2774755">
-                  <caret line="44" column="19" selection-start-line="44" selection-start-column="19" selection-end-line="44" selection-end-column="19" />
-                  <folding />
+                <state vertical-scroll-proportion="0.52407616">
+                  <caret line="101" column="52" selection-start-line="101" selection-start-column="52" selection-end-line="101" selection-end-column="52" />
+                  <folding>
+                    <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -193,6 +173,7 @@
         <option value="$PROJECT_DIR$/course/webgl/coursework.html" />
         <option value="$PROJECT_DIR$/course/webgl/util/_hw_1.html" />
         <option value="$PROJECT_DIR$/course/webgl/_hw_1.html" />
+        <option value="$PROJECT_DIR$/course/webgl/hw_1.html" />
       </list>
     </option>
   </component>
@@ -204,7 +185,7 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
+    <option name="x" value="1912" />
     <option name="y" value="32" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
@@ -322,7 +303,7 @@
       <recent name="F:\Skarlit.github.io\javascripts" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.hw_1.html">
+  <component name="RunManager">
     <configuration default="false" name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63343/index.html">
       <method />
     </configuration>
@@ -486,10 +467,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="32" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <frame x="1912" y="32" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22083333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22083333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -666,10 +647,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/course/webgl/hw_1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52407616">
-          <caret line="84" column="50" selection-start-line="84" selection-start-column="50" selection-end-line="84" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.6655093">
+          <caret line="82" column="37" selection-start-line="82" selection-start-column="37" selection-end-line="82" selection-end-column="37" />
           <folding>
-            <element signature="n#style#0;n#label#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
