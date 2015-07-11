@@ -34,9 +34,12 @@
     <style>
         .control {
             float: left;
-            margin: 20px 80px;
+            box-sizing: border-box;
+            padding: 20px 30px;
+            width: 250px;
         }
         .control-panel {
+            width: 100%;
             overflow: hidden;
         }
         .wrapper {
@@ -67,7 +70,7 @@
             <input id="includeMid" type="checkbox" />
         </label>
         <label class="control">Displace vertices?
-            <input id="displace" type="checkbox" />
+            <input id="displace" type="checkbox"  checked/>
         </label>
     </div>
     <div class="wrapper">
@@ -80,7 +83,7 @@
         var setting = {
             includeMid: false,
             division: 0,
-            displace: 0.0,
+            displace: 1.0,
             rot: 0
         };
 
@@ -109,9 +112,7 @@
             var mid = tesselate(p);
             if (setting.includeMid) {
                 vertexBuffer.push.apply(vertexBuffer, mid);
-                vertexBuffer.push.apply(vertexBuffer, [p[0], p[1], mid[0], mid[1], p[2], p[3]]);
-                vertexBuffer.push.apply(vertexBuffer, [p[2], p[3], mid[4], mid[5], p[4], p[5]]);
-                vertexBuffer.push.apply(vertexBuffer, [p[4], p[5], mid[2], mid[3], p[0], p[1]]);
+                recursiveTesselate(n-1, mid, vertexBuffer);
             }
             recursiveTesselate(n-1, [p[0], p[1], mid[0], mid[1], mid[2], mid[3]], vertexBuffer);
             recursiveTesselate(n-1, [p[2], p[3], mid[0], mid[1], mid[4], mid[5]], vertexBuffer);

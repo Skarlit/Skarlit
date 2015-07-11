@@ -38,8 +38,8 @@
           <file leaf-file-name="hw_1.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/course/webgl/hw_1.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.7476852">
-                  <caret line="68" column="40" selection-start-line="68" selection-start-column="40" selection-end-line="68" selection-end-column="40" />
+                <state vertical-scroll-proportion="0.7083333">
+                  <caret line="72" column="57" selection-start-line="72" selection-start-column="57" selection-end-line="72" selection-end-column="57" />
                   <folding>
                     <element signature="n#style#0;n#canvas#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                   </folding>
@@ -111,7 +111,7 @@
             <entry file="file://$PROJECT_DIR$/course/webgl/hw_1.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.52407616">
-                  <caret line="128" column="52" selection-start-line="128" selection-start-column="52" selection-end-line="128" selection-end-column="52" />
+                  <caret line="129" column="52" selection-start-line="129" selection-start-column="52" selection-end-line="129" selection-end-column="52" />
                   <folding>
                     <element signature="n#style#0;n#canvas#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                   </folding>
@@ -601,18 +601,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/course/webgl/util/webgl-utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="147" column="4" selection-start-line="147" selection-start-column="4" selection-end-line="147" selection-end-column="4" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1436500336328" expanded="true" signature="2670:2720" placeholder="..." />
-            <marker date="1436500336328" expanded="true" signature="2791:2835" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/course/webgl/util/mv.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.447191">
@@ -655,16 +643,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/course/webgl/util/initShaders.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/javascripts/thirdparty/hightlight.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.018498369">
@@ -681,10 +659,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/stylesheets/thirdparty/obsidian.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.230769">
-          <caret line="8" column="92" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="92" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="151" column="1" selection-start-line="151" selection-start-column="1" selection-end-line="151" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -697,18 +675,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stylesheets/thirdparty/obsidian.css">
+    <entry file="file://$PROJECT_DIR$/course/webgl/util/webgl-utils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="151" column="1" selection-start-line="151" selection-start-column="1" selection-end-line="151" selection-end-column="1" />
+          <caret line="147" column="4" selection-start-line="147" selection-start-column="4" selection-end-line="147" selection-end-column="4" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1436500336328" expanded="true" signature="2670:2720" placeholder="..." />
+            <marker date="1436500336328" expanded="true" signature="2791:2835" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/course/webgl/util/initShaders.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.230769">
+          <caret line="8" column="92" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="92" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/course/webgl/hw_1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7476852">
-          <caret line="68" column="40" selection-start-line="68" selection-start-column="40" selection-end-line="68" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.7083333">
+          <caret line="72" column="57" selection-start-line="72" selection-start-column="57" selection-end-line="72" selection-end-column="57" />
           <folding>
             <element signature="n#style#0;n#canvas#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
