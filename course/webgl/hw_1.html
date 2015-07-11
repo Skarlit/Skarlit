@@ -3,18 +3,26 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Tweak</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/thirdparty/obsidian.css" media="screen">
+    <script src="../../javascripts/thirdparty/hightlight.min.js"></script>
+    <script src="../../javascripts/jquery-1.11.3.min.js"></script>
     <script src="util/mv.js"></script>
     <script src="util/initShaders.js"></script>
     <script src="util/webgl-utils.js"></script>
+    <script src="../../javascripts/code.js"></script>
     <script id="vs" type="v-shader">
         attribute vec2 vPosition;
         uniform float rot;
         uniform float displace;
         float angle;
         void main() {
-            angle =  sqrt(vPosition.x * vPosition.x  + vPosition.y * vPosition.y); // factor
-            angle =  displace * angle * rot +  (1.0 - displace) * rot;
-            gl_Position = vec4(vPosition.x * cos(angle) - vPosition.y*sin(angle), vPosition.x *sin(angle) + vPosition.y*cos(angle),  0.0, 1.0);
+            angle = sqrt(vPosition.x * vPosition.x + vPosition.y * vPosition.y); // factor
+            angle = displace * angle * rot +  (1.0 - displace) * rot;
+            gl_Position = vec4(
+                vPosition.x * cos(angle) - vPosition.y*sin(angle),
+                vPosition.x *sin(angle) + vPosition.y*cos(angle),
+                0.0,
+                1.0);
         }
     </script>
     <script id="fs" type="f-shader">
@@ -25,7 +33,21 @@
     </script>
     <style>
         .control {
-            display: block;
+            float: left;
+            margin: 20px 80px;
+        }
+        .control-panel {
+            overflow: hidden;
+        }
+        .wrapper {
+            overflow: hidden;
+        }
+        #code {
+           float: left;
+            margin: 0 15px;
+        }
+        #canvas {
+            float: left;
         }
     </style>
 </head>
@@ -48,8 +70,13 @@
             <input id="displace" type="checkbox" />
         </label>
     </div>
-    <canvas id="canvas" height="400" width="800" style="display:block"></canvas>
-    <script>
+    <div class="wrapper">
+        <canvas id="canvas" height="480" width="640" style="display:block"></canvas>
+        <div id="code">
+
+        </div>
+    </div>
+    <script id="main">
         var setting = {
             includeMid: false,
             division: 0,
@@ -82,9 +109,9 @@
             var mid = tesselate(p);
             if (setting.includeMid) {
                 vertexBuffer.push.apply(vertexBuffer, mid);
-                vertexBuffer.push.apply(vertexBuffer, [p[0], p[1], mid[0], mid[1], mid[2], mid[3]]);
-                vertexBuffer.push.apply(vertexBuffer, [p[2], p[3], mid[0], mid[1], mid[4], mid[5]]);
-                vertexBuffer.push.apply(vertexBuffer, [p[4], p[5], mid[4], mid[5], mid[2], mid[3]]);
+                vertexBuffer.push.apply(vertexBuffer, [p[0], p[1], mid[0], mid[1], p[2], p[3]]);
+                vertexBuffer.push.apply(vertexBuffer, [p[2], p[3], mid[4], mid[5], p[4], p[5]]);
+                vertexBuffer.push.apply(vertexBuffer, [p[4], p[5], mid[2], mid[3], p[0], p[1]]);
             }
             recursiveTesselate(n-1, [p[0], p[1], mid[0], mid[1], mid[2], mid[3]], vertexBuffer);
             recursiveTesselate(n-1, [p[2], p[3], mid[0], mid[1], mid[4], mid[5]], vertexBuffer);
@@ -149,7 +176,18 @@
             program.rot =gl.getUniformLocation(program, "rot");
             renderData();
             initControl();
+            // Show code;
+            Code.render(document.getElementById('code'),
+                    document.getElementById('vs').textContent, 'c++');
+            Code.render(document.getElementById('code'),
+                    document.getElementById('fs').textContent, 'c++');
+            Code.render(document.getElementById('code'),
+                    document.getElementById('main').textContent, 'js');
+            $('pre code').each(function(i, block) {
+                hljs.highlightBlock(block);
+            });
         };
     </script>
+
 </body>
 </html>
