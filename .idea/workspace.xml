@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="191cd67e-22ba-46ba-bbf5-b5cfb37b87bd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/javascripts/code.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/javascripts/thirdparty/hightlight.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/stylesheets/thirdparty/obsidian.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/course/webgl/hw_1.html" afterPath="$PROJECT_DIR$/course/webgl/hw_1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Skarlit.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,8 +38,8 @@
           <file leaf-file-name="hw_1.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/course/webgl/hw_1.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.3148148">
-                  <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
+                <state vertical-scroll-proportion="0.7476852">
+                  <caret line="68" column="40" selection-start-line="68" selection-start-column="40" selection-end-line="68" selection-end-column="40" />
                   <folding>
                     <element signature="n#style#0;n#canvas#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                   </folding>
@@ -711,8 +707,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/course/webgl/hw_1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3148148">
-          <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.7476852">
+          <caret line="68" column="40" selection-start-line="68" selection-start-column="40" selection-end-line="68" selection-end-column="40" />
           <folding>
             <element signature="n#style#0;n#canvas#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
