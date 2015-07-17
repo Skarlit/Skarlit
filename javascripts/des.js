@@ -102,6 +102,15 @@ function ParticleSystem(n, r, cX, cY) {
         this.p[i] = new THREE.Vector3(cX* 2 * (Math.random() - 0.5), cY*2*(Math.random() - 0.5));
         this.v[i] = new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5);
     }
+    this.eventHeap = new EventHeap(function(a, b) {
+        if (a.timeStamp > b.timeStamp) {
+            return 1;
+        } else if (a.timeStamp < b.timeStamp) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
 }
 
 ParticleSystem.prototype._predict = function (i, j) {
