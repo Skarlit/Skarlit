@@ -57,6 +57,10 @@ EventHeap.prototype.pop = function() {
     return tmp;
 };
 
+EventHeap.prototype.top = function() {
+    return this.array[1];
+};
+
 EventHeap.prototype.insert = function(obj) {
     this.array.push(obj);
     this.last++;
@@ -94,13 +98,19 @@ EventHeap.prototype.insert = function(obj) {
 
 function ParticleSystem(n, r, cX, cY) {
     this.r = r;
+    this.collisionDist = 4* r * r * 1.01 // Allow for 1% error;
     this.cX  = cX;
     this.cY = cY;
     this.p = new Array(n);
     this.v = new Array(n);
+    this.pointCloudGeo = new THREE.Geometry();
+    this.pointCloudMat = new THREE.PointCloudMaterial({size: r});
+    this.pointCloud = new THREE.PointCloud(this.pointCloudGeo, this.pointCloudMat);
+
     for(var i = 0; i < n; i++) {
-        this.p[i] = new THREE.Vector3(cX* 2 * (Math.random() - 0.5), cY*2*(Math.random() - 0.5));
-        this.v[i] = new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5);
+        this.p[i] = new THREE.Vector3(cX* 2 * (Math.random() - 0.5), cY*2*(Math.random() - 0.5, 0));
+        this.pointCloudGeo.vertices.push(this.p[i]);
+        this.v[i] = new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, 0);
     }
     this.eventHeap = new EventHeap(function(a, b) {
         if (a.timeStamp > b.timeStamp) {
@@ -113,13 +123,89 @@ function ParticleSystem(n, r, cX, cY) {
     });
 }
 
+ParticleSystem.prototype.predictAll = function () {
+    var event;
+    for(var i = 0; i < this.p.length; i++) {
+        for(var j = i+1; j < this.p.length; j++) {
+            event = this._predict(i, j)
+            if(event) this.eventHeap.push(event);
+        }
+        event = this._predictWall(i);
+        if (event) this.eventHeap.push(event);
+    }
+};
+
+ParticleSystem.prototype.update = function(dt) {
+    for(var i = 0; i < this.p.length ; i++) {
+        this.p[i] = this.p[i].add(this.v[i].multiplyScalar(dt));
+    }
+};
+
+ParticleSystem.prototype.handleEvent = function(e) {
+    var valid = false;
+    switch(e.type) {
+        case 0:
+            var dist = (new THREE.Vector3()).subVectors(this.p[e.pair[0]], this.p[e.pair[1]]);
+            if(dist.lengthSq() < this.collisionDist) { // valid
+                this._collide(e.pair[0], e.pair[1]);
+                var event;
+                for(var i = 0; i < this.p.length; i++) {
+                    event = this._predict(e.pair[0], i);
+                    if (event) this.eventHeap.push(event);
+                    event = this._predict(e.pair[1], i);
+                    if (event) this.eventHeap.push(event);
+                }
+                event = this._predictWall(e.pair[0]);
+                if (event) this.eventHeap.push(event);
+                event = this._predictWall(e.pair[1]);
+                if (event) this.eventHeap.push(event);
+            }
+            return;
+        case 1:
+            if ( this.cY - this.p[e.idx].y < this.r) {
+                this.v[e.idx].y = - this.v[e.idx].y;
+                valid = true;
+            }
+            break;
+        case 2:
+            if (this.p[e.idx].x - this.cX < this.r) {
+                this.v[e.idx].x = - this.v[e.idx].x;
+                valid = true;
+            }
+            break;
+        case 3:
+            if (this.p[e.idx].y - this.cY < this.r) {
+                this.v[e.idx].y = - this.v[e.idx].y;
+                valid = true;
+            }
+            break;
+        case 4:
+            if (this.cX - this.p[e.idx].x < this.r) {
+                this.v[e.idx].x = - this.v[e.idx].x;
+                valid = true;
+            }
+            break;
+    }
+    if (valid) {
+        var event;
+        for (var i = 0; i < this.p.length; i++) {
+            event = this._predict(e.idx, i);
+            if (event) this.eventHeap.push(event);
+        }
+        event = this._predictWall(e.idx);
+        if (event) this.eventHeap.push(event);
+    }
+};
+
+
 ParticleSystem.prototype._predict = function (i, j) {
+    if(i == j) return ;
     var dp =  (new THREE.Vector3).subVectors(this.p[j], this.p[i]);
     var dv =  (new THREE.Vector3).subVectors(this.v[j], this.v[i]);
     var dvdp = dp.dot(dv);
     var det = Math.pow(dvdp, 2) - dp.lengthSq()*dv.lengthSq() + 4 * dv.lengthSq() * this.r * this.r;
     if (det < 0) {
-        return {};
+        return;
     } else {
         var timeStamp = Math.max(-dvdp + det, -dvdp - det);
         if (timeStamp > 0) {
@@ -129,7 +215,7 @@ ParticleSystem.prototype._predict = function (i, j) {
                 timeStamp: timeStamp / dv.lengthSq()
             }
         } else {
-            return {}
+            return;
         }
     }
 };
@@ -150,19 +236,19 @@ ParticleSystem.prototype._predictWall = function(i) {
          tx = -(this.p[i].x + this.cX) / this.v[i].x;
         if (this.v[i].y < 0) {  // DOWN
             ty = - (this.p[i].y + this.cY) / this.v[i].y;
-            return (ty > tx ?  {type: 2, timeStamp: tx} : {type: 3, timeStamp: ty});
+            return (ty > tx ?  {type: 2, idx: i,  timeStamp: tx} : {type: 3, idx: i, timeStamp: ty});
         } else {  // UP
             ty = (this.cY - this.p[i].y) / this.v[i].y;
-            return (ty > tx ?  {type: 2, timeStamp: tx} : {type: 1, timeStamp: ty});
+            return (ty > tx ?  {type: 2, idx: i,timeStamp: tx} : {type: 1, idx: i, timeStamp: ty});
         }
     } else {  // RIGHT
         tx = (this.cX - this.p[i].x) / this.v[i].x;
         if (this.v[i].y < 0) {  // DOWN
             ty = - (this.p[i].y + this.cY) / this.v[i].y;
-            return (ty > tx ?  {type: 4, timeStamp: tx} : {type: 3, timeStamp: ty});
+            return (ty > tx ?  {type: 4, idx: i, timeStamp: tx} : {type: 3, idx: i, timeStamp: ty});
         } else { // UP
             ty = (this.cY - this.p[i].y) / this.v[i].y;
-            return (ty > tx ?  {type: 4, timeStamp: tx} : {type: 1, timeStamp: ty});
+            return (ty > tx ?  {type: 4, idx: i, timeStamp: tx} : {type: 1, idx: i, timeStamp: ty});
         }
     }
 };
@@ -177,5 +263,34 @@ ParticleSystem.prototype._collide = function(i, j) {
         this.v[j].y = - this.v[j].y;
     }
 };
+
+ParticleSystem.prototype.draw = function() {
+
+};
+
+function Main() {
+    // Set up scene
+    var camera = new THREE.OrthographicCamera();
+
+    var p = new ParticleSystem(400, 3, 20, 20);
+    p.predictAll();
+    // set up Clock
+    var clock = new THREE.Clock();
+    clock.start();
+    var t = 0;
+
+    var render = function() {
+        window.requestAnimationFrame(this);
+        p.draw();
+        while (t > p.eventHeap.top.timeStamp) {
+            p.handleEvent(p.eventHeap.pop());
+        }
+        var dt = clock.getDelta();
+        t += dt;
+        p.update(dt);
+    }
+
+    render();
+}
 
 
