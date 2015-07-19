@@ -23,44 +23,35 @@
     <favorites_list name="Skarlit.github.io" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6461443">
+    <splitter split-orientation="horizontal" split-proportion="0.44536817">
       <split-first>
         <leaf>
           <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-9.153846">
-                  <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+                <state vertical-scroll-proportion="-13.730769">
+                  <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="des.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="des.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/experiments/des.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-11.769231">
-                  <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+                <state vertical-scroll-proportion="0.34537247">
+                  <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="des.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/javascripts/des.js">
+          <file leaf-file-name="mouse.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/javascripts/mouse.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.42045453">
-                  <caret line="311" column="47" selection-start-line="311" selection-start-column="47" selection-end-line="311" selection-end-column="47" />
-                  <folding>
-                    <element signature="e#99#224#0" expanded="false" />
-                    <element signature="e#270#362#0" expanded="false" />
-                    <element signature="e#411#722#0" expanded="false" />
-                    <element signature="e#767#1042#0" expanded="false" />
-                    <element signature="e#1087#1332#0" expanded="false" />
-                    <element signature="e#1372#1521#0" expanded="false" />
-                    <element signature="e#1561#1590#0" expanded="false" />
-                    <marker date="1437280829927" expanded="true" signature="10927:10948" placeholder="..." />
-                  </folding>
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="121" column="11" selection-start-line="121" selection-start-column="11" selection-end-line="121" selection-end-column="11" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -79,7 +70,7 @@
             <entry file="file://$PROJECT_DIR$/javascripts/code.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
+                  <caret line="9" column="2" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
                   <folding />
                 </state>
               </provider>
@@ -97,24 +88,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="webgl-utils.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/course/webgl/util/webgl-utils.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="147" column="4" selection-start-line="147" selection-start-column="4" selection-end-line="147" selection-end-column="4" />
-                  <folding>
-                    <element signature="n#!!doc" expanded="true" />
-                    <marker date="1436500336328" expanded="true" signature="2670:2720" placeholder="..." />
-                    <marker date="1436500336328" expanded="true" signature="2791:2835" placeholder="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="slider.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/experiments/slider.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
+                <state vertical-scroll-proportion="-0.0">
                   <caret line="29" column="9" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
                   <folding />
                 </state>
@@ -125,11 +102,28 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="hw_1.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="des.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/javascripts/des.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.9440789">
+                  <caret line="351" column="11" selection-start-line="351" selection-start-column="11" selection-end-line="351" selection-end-column="11" />
+                  <folding>
+                    <element signature="e#298#390#0" expanded="false" />
+                    <element signature="e#439#750#0" expanded="false" />
+                    <element signature="e#795#1070#0" expanded="false" />
+                    <element signature="e#1115#1360#0" expanded="false" />
+                    <element signature="e#1400#1549#0" expanded="false" />
+                    <element signature="e#1589#1618#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="hw_1.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/course/webgl/hw_1.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.9266366">
-                  <caret line="160" column="18" selection-start-line="160" selection-start-column="18" selection-end-line="160" selection-end-column="18" />
+                <state vertical-scroll-proportion="-25.576923">
+                  <caret line="186" column="11" selection-start-line="186" selection-start-column="11" selection-end-line="188" selection-end-column="15" />
                   <folding>
                     <element signature="n#style#0;n#canvas#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                   </folding>
@@ -177,8 +171,8 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/javascripts/code.js" />
         <option value="$PROJECT_DIR$/course/webgl/hw_1.html" />
-        <option value="$PROJECT_DIR$/experiments/des.html" />
         <option value="$PROJECT_DIR$/javascripts/des.js" />
+        <option value="$PROJECT_DIR$/experiments/des.html" />
       </list>
     </option>
   </component>
@@ -543,7 +537,7 @@
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1109375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -601,14 +595,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="177" column="5" selection-start-line="177" selection-start-column="5" selection-end-line="177" selection-end-column="5" />
           <folding>
-            <element signature="e#99#224#0" expanded="false" />
-            <element signature="e#270#362#0" expanded="false" />
-            <element signature="e#411#722#0" expanded="false" />
-            <element signature="e#767#1042#0" expanded="false" />
-            <element signature="e#1087#1332#0" expanded="false" />
-            <element signature="e#1372#1521#0" expanded="false" />
-            <element signature="e#1561#1590#0" expanded="false" />
-            <marker date="1437280829927" expanded="true" signature="10927:10948" placeholder="..." />
+            <element signature="e#298#390#0" expanded="false" />
+            <element signature="e#439#750#0" expanded="false" />
+            <element signature="e#795#1070#0" expanded="false" />
+            <element signature="e#1115#1360#0" expanded="false" />
+            <element signature="e#1400#1549#0" expanded="false" />
+            <element signature="e#1589#1618#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -645,8 +637,8 @@
           <caret line="147" column="4" selection-start-line="147" selection-start-column="4" selection-end-line="147" selection-end-column="4" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <marker date="1436500336328" expanded="true" signature="2670:2720" placeholder="..." />
-            <marker date="1436500336328" expanded="true" signature="2791:2835" placeholder="..." />
+            <marker date="1436500336328" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1436500336328" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -709,8 +701,8 @@
           <caret line="147" column="4" selection-start-line="147" selection-start-column="4" selection-end-line="147" selection-end-column="4" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <marker date="1436500336328" expanded="true" signature="2670:2720" placeholder="..." />
-            <marker date="1436500336328" expanded="true" signature="2791:2835" placeholder="..." />
+            <marker date="1436500336328" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1436500336328" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -773,8 +765,8 @@
           <caret line="147" column="4" selection-start-line="147" selection-start-column="4" selection-end-line="147" selection-end-column="4" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <marker date="1436500336328" expanded="true" signature="2670:2720" placeholder="..." />
-            <marker date="1436500336328" expanded="true" signature="2791:2835" placeholder="..." />
+            <marker date="1436500336328" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1436500336328" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -889,11 +881,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stylesheets/thirdparty/obsidian.css">
+    <entry file="file://$PROJECT_DIR$/experiments/slider.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="151" column="1" selection-start-line="151" selection-start-column="1" selection-end-line="151" selection-end-column="1" />
+          <caret line="29" column="9" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/course/webgl/util/webgl-utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55263156">
+          <caret line="147" column="4" selection-start-line="147" selection-start-column="4" selection-end-line="147" selection-end-column="4" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1436500336328" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1436500336328" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -907,82 +911,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/slider.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="9" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/course/webgl/util/webgl-utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="147" column="4" selection-start-line="147" selection-start-column="4" selection-end-line="147" selection-end-column="4" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1436500336328" expanded="true" signature="2670:2720" placeholder="..." />
-            <marker date="1436500336328" expanded="true" signature="2791:2835" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/javascripts/code.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
+          <caret line="9" column="2" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/course/webgl/hw_1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9266366">
-          <caret line="160" column="18" selection-start-line="160" selection-start-column="18" selection-end-line="160" selection-end-column="18" />
+        <state vertical-scroll-proportion="-25.576923">
+          <caret line="186" column="11" selection-start-line="186" selection-start-column="11" selection-end-line="188" selection-end-column="15" />
           <folding>
             <element signature="n#style#0;n#canvas#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/javascripts/des.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.153846">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
-          <folding />
+        <state vertical-scroll-proportion="0.9440789">
+          <caret line="351" column="11" selection-start-line="351" selection-start-column="11" selection-end-line="351" selection-end-column="11" />
+          <folding>
+            <element signature="e#298#390#0" expanded="false" />
+            <element signature="e#439#750#0" expanded="false" />
+            <element signature="e#795#1070#0" expanded="false" />
+            <element signature="e#1115#1360#0" expanded="false" />
+            <element signature="e#1400#1549#0" expanded="false" />
+            <element signature="e#1589#1618#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/javascripts/mouse.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8159091">
-          <caret line="162" column="42" selection-start-line="162" selection-start-column="42" selection-end-line="162" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="121" column="11" selection-start-line="121" selection-start-column="11" selection-end-line="121" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stylesheets/thirdparty/obsidian.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="151" column="1" selection-start-line="151" selection-start-column="1" selection-end-line="151" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.730769">
+          <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/experiments/des.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.769231">
-          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.34537247">
+          <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/javascripts/des.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42045453">
-          <caret line="311" column="47" selection-start-line="311" selection-start-column="47" selection-end-line="311" selection-end-column="47" />
-          <folding>
-            <element signature="e#99#224#0" expanded="false" />
-            <element signature="e#270#362#0" expanded="false" />
-            <element signature="e#411#722#0" expanded="false" />
-            <element signature="e#767#1042#0" expanded="false" />
-            <element signature="e#1087#1332#0" expanded="false" />
-            <element signature="e#1372#1521#0" expanded="false" />
-            <element signature="e#1561#1590#0" expanded="false" />
-            <marker date="1437280829927" expanded="true" signature="10927:10948" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>

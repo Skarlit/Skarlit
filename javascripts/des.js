@@ -1,10 +1,11 @@
 
 // compareTo (a, b) :  -1  a < b,  0 a == b,  1 a > b
-var EventHeap = function(compareTo, filter) {
+var EventHeap = function(compareTo, hash, filter) {
     this.array = [null];
     this.last = 0;
     this.compareTo = compareTo;
     this.memo = {};
+    this.hash = hash;
     this.filter = filter;
 };
 
@@ -64,13 +65,15 @@ EventHeap.prototype.top = function() {
 };
 
 EventHeap.prototype.insert = function(obj) {
-    if(!this.memo[this.filter(obj)]) {
-        this.memo[this.filter(obj)] = true;
+    if(!this.memo[this.hash(obj)] && this.filter(obj)) {
+        this.memo[this.hash(obj)] = true;
         this.array.push(obj);
         this.last++;
         this._swim(this.last);
     }
 };
+
+EventHeap.prototype.empty = function() { return this.last < 1;}
 
 function ParticleSystem(n, r, cX, cY, maxSpeed, drawRadius) {
     this.r = r;
@@ -82,6 +85,8 @@ function ParticleSystem(n, r, cX, cY, maxSpeed, drawRadius) {
     this.v = new Array(n);
     this.pointCloudGeo = new THREE.Geometry();
     this.t = 0;
+    this.drawRadius = drawRadius;
+    this.maxSpeed = maxSpeed;
 
     for(var i = 0; i < n; i++) {
         this.p[i] = new THREE.Vector3(cX * 2 * (Math.random() - 0.5), cY * 2 * (Math.random() - 0.5), 0);
@@ -90,13 +95,33 @@ function ParticleSystem(n, r, cX, cY, maxSpeed, drawRadius) {
     // DEBUG TEST
     //this.p = [new THREE.Vector3(cX, 0, 0), new THREE.Vector3(0, 0, 0)];
     //this.v = [new THREE.Vector3(-60, 0, 0), new THREE.Vector3(-20, 0, 0)];
+    // DEBUG TEST
+
     this.pointCloudGeo.vertices = this.p;
-    this.pointCloudMat = new THREE.PointCloudMaterial({
-        size: drawRadius,
-        map: THREE.ImageUtils.loadTexture('../img/sparkle_0.png'),
-        sizeAttenuation: false,
-        color: 0x22dd22
+    //this.pointCloudMat = new THREE.PointCloudMaterial({
+    //    size: drawRadius,
+    //    map: THREE.ImageUtils.loadTexture('../img/sparkle_0.png'),
+    //    sizeAttenuation: false,
+    //    transparent: true,
+    //    color: 0x22dd22
+    //});
+    this.pointCloudMat = new THREE.ShaderMaterial({
+        uniforms: {
+            maxSpeed: {type: "f", value: this.maxSpeed},
+            radius: {type: "f", value: this.drawRadius},
+            color: {type: "c", value: new THREE.Color(0xb5e853)},
+            texture: {type: 't', value: THREE.ImageUtils.loadTexture('../img/star.png')}
+        },
+        attributes: {
+            velocity: {type: "v3", value: this.v}
+        },
+        vertexShader: document.getElementById('vs').textContent,
+        fragmentShader: document.getElementById('fs').textContent,
+        blending:  THREE.AdditiveBlending,
+        depthTest:      false,
+        transparent:    true
     });
+
     this.pointCloud = new THREE.PointCloud(this.pointCloudGeo, this.pointCloudMat);
     this.eventHeap = new EventHeap(function(a, b) {
         if (a.timeStamp > b.timeStamp) {
@@ -109,18 +134,17 @@ function ParticleSystem(n, r, cX, cY, maxSpeed, drawRadius) {
     }, function(event) {
         if (event.type == 0) return  [event.type,  event.pair.join(' '), event.timeStamp].join(' ');
         return  [event.type,  event.idx,  event.timeStamp].join(' ');
+    }, function(event) {
+        return event.type != -1;
     });
 }
 
 ParticleSystem.prototype.predictAll = function () {
-    var event;
     for(var i = 0; i < this.p.length; i++) {
         for(var j = i+1; j < this.p.length; j++) {
-            event = this._predict(i, j);
-            if(event) this.eventHeap.insert(event);
+            this.eventHeap.insert( this._predict(i, j));
         }
-        event = this._predictWall(i);
-        if (event) this.eventHeap.insert(event);
+        this.eventHeap.insert(this._predictWall(i));
     }
 };
 
@@ -129,6 +153,7 @@ ParticleSystem.prototype.update = function(dt) {
         this.p[i] = this.p[i].add(this.v[i].clone().multiplyScalar(dt));
     }
     this.pointCloud.geometry.verticesNeedUpdate = true;
+    this.pointCloudMat.attributes.velocity.needsUpdate = true;
 };
 
 ParticleSystem.prototype.handleEvent = function(e) {
@@ -137,43 +162,38 @@ ParticleSystem.prototype.handleEvent = function(e) {
     switch(e.type) {
         case 0:
             var dist = new THREE.Vector3(
-                this.p[e.pair[0]].x - this.v[e.pair[0]].x * offset - (this.p[e.pair[1]].x - this.v[e.pair[1]].x * offset),
-                this.p[e.pair[0]].y - this.v[e.pair[0]].y * offset - (this.p[e.pair[1]].y - this.v[e.pair[1]].y * offset), 0);
-            if(dist.lengthSq() < this.collisionDist) { // valid
+                this.p[e.pair[0]].x - this.v[e.pair[0]].x * offset - this.p[e.pair[1]].x + this.v[e.pair[1]].x * offset,
+                this.p[e.pair[0]].y - this.v[e.pair[0]].y * offset - this.p[e.pair[1]].y + this.v[e.pair[1]].y * offset, 0);
+            if(dist.lengthSq() <= this.collisionDist) { // valid
                 this._collide(e.pair[0], e.pair[1]);
-                var event;
                 for(var i = 0; i < this.p.length; i++) {
-                    event = this._predict(e.pair[0], i);
-                    if (event) this.eventHeap.insert(event);
-                    event = this._predict(e.pair[1], i);
-                    if (event) this.eventHeap.insert(event);
+                    this.eventHeap.insert(this._predict(e.pair[0], i));
+                    this.eventHeap.insert(this._predict(e.pair[1], i));
                 }
-                event = this._predictWall(e.pair[0]);
-                if (event) this.eventHeap.insert(event);
-                event = this._predictWall(e.pair[1]);
-                if (event) this.eventHeap.insert(event);
+                this.eventHeap.insert(this._predictWall(e.pair[0]));
+                this.eventHeap.insert(this._predictWall(e.pair[1]));
             }
             return;
         case 1:
-            if (Math.abs(this.p[e.idx].y - this.v[e.idx].y * offset - this.cY) < this.collisionWallDist) {
+            if (Math.abs(this.p[e.idx].y - this.v[e.idx].y * offset  - this.cY) <= this.collisionWallDist) {
                 this.v[e.idx].y = - this.v[e.idx].y;
                 valid = true;
             }
             break;
         case 2:
-            if (Math.abs(this.p[e.idx].x - this.v[e.idx].x * offset + this.cX) < this.collisionWallDist) {
+            if (Math.abs(this.p[e.idx].x - this.v[e.idx].x * offset + this.cX) <= this.collisionWallDist) {
                 this.v[e.idx].x = - this.v[e.idx].x;
                 valid = true;
             }
             break;
         case 3:
-            if (Math.abs(this.p[e.idx].y - this.v[e.idx].y * offset + this.cY) < this.collisionWallDist) {
+            if (Math.abs(this.p[e.idx].y - this.v[e.idx].y * offset  + this.cY) <= this.collisionWallDist) {
                 this.v[e.idx].y = - this.v[e.idx].y;
                 valid = true;
             }
             break;
         case 4:
-            if (Math.abs(this.p[e.idx].x - this.v[e.idx].x * offset - this.cX) < this.collisionWallDist) {
+            if (Math.abs(this.p[e.idx].x - this.v[e.idx].x * offset - this.cX) <= this.collisionWallDist) {
                 this.v[e.idx].x = - this.v[e.idx].x;
                 valid = true;
             }
@@ -192,25 +212,19 @@ ParticleSystem.prototype.handleEvent = function(e) {
 
 
 ParticleSystem.prototype._predict = function (n, m) {
-    if(n == m) return ;
+    if(n == m) return {type: -1};
     var dp =  (new THREE.Vector3).subVectors(this.p[m], this.p[n]);
     var dv =  (new THREE.Vector3).subVectors(this.v[m], this.v[n]);
     var dvdp = dp.dot(dv);
     var det = Math.pow(dvdp, 2) - (dp.lengthSq() - 4 * this.r * this.r) * dv.lengthSq();
-    if (det >= 0) {
-        det = Math.sqrt(det);
-        var timeStamp = Math.min(-dvdp-det, -dvdp+det);// -dvdp + (this.v[m].dot(this.v[n]) > 0 ? det :-det);
-        if (timeStamp > 0) {
-            var e = {
-                type: 0,
-                pair:  n > m ? [m, n] : [n, m],
-                timeStamp:  this.t +  timeStamp / ( dv.lengthSq())
-            }
-            //console.log(JSON.stringify(e));
-            return e
-        } else {
-            return;
+    if (det >= 0 && dvdp < 0) {
+        return  {
+            type: 0,
+            pair:  n > m ? [m, n] : [n, m],
+            timeStamp:  this.t + ( -dvdp -Math.sqrt(det)) / ( dv.lengthSq())
         }
+    } else {
+        return {type: -1}
     }
 };
 
@@ -248,12 +262,12 @@ ParticleSystem.prototype._predictWall = function(i) {
 };
 
 ParticleSystem.prototype._collide = function(n, m) {
-    var tmp = this.v[n].x;
-    this.v[n].x = this.v[m].x;
-    this.v[m].x = tmp;
-    tmp = this.v[n].y;
-    this.v[n].y = this.v[m].y;
-    this.v[m].y = tmp;
+    var dp =  (new THREE.Vector3).subVectors(this.p[m], this.p[n]);
+    var dv =  (new THREE.Vector3).subVectors(this.v[m], this.v[n]);
+    var dvdp = dp.dot(dv);
+    var jVec = dp.multiplyScalar(dvdp / dp.lengthSq());
+    this.v[n].add(jVec);
+    this.v[m].sub(jVec);
 };
 
 function Main() {
@@ -272,24 +286,20 @@ function Main() {
     var boundX = 200;
     var boundY = 200;
     var r = 10;
-    var pNum = 200;
+    var pNum = 50;
     var drawRadius = 30;
-    var maxSpeed = 50;
+    var maxSpeed = 1600;
     var p = new ParticleSystem(pNum, r, boundX, boundY, maxSpeed, drawRadius);
     p.predictAll();
-
-    // Set up timeStep
-    var dt = 0.05
-    p.t = 0;
 
     // Set up Box
     var geometry = new THREE.Geometry();
     geometry.vertices = [
-        new THREE.Vector3(boundX + r, boundY  + r, 0),
-        new THREE.Vector3(boundX + r, -boundY - r, 0),
-        new THREE.Vector3(-boundX - r, -boundY - r , 0),
-        new THREE.Vector3(-boundX - r , boundY + r, 0),
-        new THREE.Vector3(boundX + r, boundY  + r, 0)
+        new THREE.Vector3(boundX + drawRadius, boundY  + drawRadius, 0),
+        new THREE.Vector3(boundX + drawRadius, -boundY - drawRadius, 0),
+        new THREE.Vector3(-boundX - drawRadius, -boundY - drawRadius , 0),
+        new THREE.Vector3(-boundX - drawRadius , boundY + drawRadius, 0),
+        new THREE.Vector3(boundX + drawRadius, boundY  + drawRadius, 0)
     ];
     var material = new THREE.LineBasicMaterial( {color: 0xffff00, linewidth: 3} );
     var plane = new THREE.Line( geometry, material );
@@ -308,27 +318,40 @@ function Main() {
     var time = ui.find('.time');
     function UIUpdate() {
         time.text('time: ' + p.t);
-        particle.text('Sample p: ' + JSON.stringify(p.pointCloud.geometry.vertices[1]));
-        location.text('Localtion: ' + JSON.stringify(p.v[1]));
+        particle.text('Location: ' + JSON.stringify(p.pointCloud.geometry.vertices[1]));
+        location.text('Velocity: ' + JSON.stringify(p.v[1]));
         eNums.text('events: ' + p.eventHeap.last);
         heapTop.text('heap top: ' + JSON.stringify(p.eventHeap.top()));
     }
 
+    p.t = 0;
+    var dt = 0.005;
+    var frames = 10;
+    var count = 0;
+    var prevEvent = {timeStamp: 0};
     // Render
-    var render = function() {
+    function render() {
         window.requestAnimationFrame(render);
         //UIUpdate();
-        //var dt = 0.05 //clock.getDelta();
         while (p.t > p.eventHeap.top().timeStamp) {
-            p.handleEvent(p.eventHeap.pop(), dt);
+            p.handleEvent(p.eventHeap.pop());
         }
         p.t += dt;
         p.update(dt);
         renderer.render(scene, camera);
-    };
+    }
 
     render();
-    //window.addEventListener('keypress', render);
+
+    Code.render(document.getElementById('code'), document.getElementById('vs').textContent, 'c++');
+    Code.render(document.getElementById('code'), document.getElementById('fs').textContent, 'c++');
+    $.get('../javascripts/des.js/', function(result) {
+        Code.render(document.getElementById('code'), result, 'js');
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    })
+
 }
 
 
