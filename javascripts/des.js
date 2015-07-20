@@ -345,7 +345,7 @@ function Main() {
 
     Code.render(document.getElementById('code'), document.getElementById('vs').textContent, 'c++');
     Code.render(document.getElementById('code'), document.getElementById('fs').textContent, 'c++');
-    $.get('../javascripts/des.js/', function(result) {
+    $.get('/javascripts/des.js/', function(result) {
         Code.render(document.getElementById('code'), result, 'js');
         $('pre code').each(function(i, block) {
             hljs.highlightBlock(block);
