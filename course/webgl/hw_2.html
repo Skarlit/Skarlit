@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/thirdparty/obsidian.css" media="screen">
+    <script src="../../javascripts/thirdparty/hightlight.min.js"></script>
+    <script src="../../javascripts/jquery-1.11.3.min.js"></script>
+    <script src="util/mv.js"></script>
+    <script src="util/initShaders.js"></script>
+    <script src="util/webgl-utils.js"></script>
+    <script src="../../javascripts/code.js"></script>
+</head>
+<body>
+<canvas id="canvas">
+
+</canvas>
+<div id="code">
+
+
+</div>
+<script id="vs" type="shader">
+//uniform float color;
+attribute vec2 position;
+void main () {
+  gl_Position = vec4(position, 0.0, 1.0);
+}
+</script>
+<script id="fs" type="shader">
+precision mediump float;
+void main () {
+  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+}
+</script>
+<script id="main">
+
+    window.onload = function() {
+        var MouseStat = {
+            down: false,
+            x: 0,
+            y: 0,
+            trails: []
+        };
+
+        var viewPortWidth = 800;
+        var viewPortHeight = 600;
+
+        var canvas = document.getElementById('canvas');
+        canvas.width = viewPortWidth;
+        canvas.height = viewPortHeight;
+        var $canvas = $(canvas);
+        var canvasOffset = $canvas.offset();
+        function normalize(domX, domY) {
+            return vec2(
+                2 * (domX - canvasOffset.left)/viewPortWidth - 1,
+                1 - 2 * (domY - canvasOffset.top)/viewPortHeight
+            );
+        }
+        canvas.addEventListener('mousedown', function() {
+            MouseStat.down = true;
+        });
+        canvas.addEventListener('mouseup', function() {
+            MouseStat.down = false;
+        });
+        canvas.addEventListener('mousemove', function(e) {
+            if (MouseStat.down) {
+                MouseStat.trails.push(normalize(e.clientX, e.clientY));
+                gl.bufferData(gl.ARRAY_BUFFER, flatten(MouseStat.trails), gl.STATIC_DRAW);
+                gl.clear(gl.COLOR_BUFFER_BIT);
+
+                gl.drawArrays(gl.LINE_STRIP, 0, parseInt(MouseStat.trails.length));
+            }
+        });
+
+        // Init GL
+        gl = WebGLUtils.setupWebGL( canvas );
+        if ( !gl ) { alert( "WebGL isn't available" ); }
+        gl.viewport(0, 0, viewPortWidth, viewPortHeight);
+        gl.clearColor( 0.0, 0.0, 0.0, 0.0 );
+        var program = initShaders( gl, "vs", "fs" );
+        gl.useProgram( program );
+        program.color = gl.getUniformLocation(program, "color");
+        var bufferId = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+        program.position = gl.getAttribLocation(program, "position");
+        gl.vertexAttribPointer( program.position, 2, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray( program.position);
+        gl.lineWidth(10);
+
+        // Show code;
+        Code.render(document.getElementById('code'),
+                document.getElementById('vs').textContent, 'c++');
+        Code.render(document.getElementById('code'),
+                document.getElementById('fs').textContent, 'c++');
+        Code.render(document.getElementById('code'),
+                document.getElementById('main').textContent, 'js');
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    }
+
+
+</script>
+</body>
+</html>
