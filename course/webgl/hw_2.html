@@ -15,11 +15,9 @@
             pointer-events: none;
             color: #ccc;
         }
-
         .disable:hover {
             cursor: not-allowed;
         }
-
         .btn {
             display: inline-block;
             border: 1px solid #ddd;
@@ -28,20 +26,33 @@
             padding: 5px 15px;
             margin-right: 10px;
         }
-
         .btn:hover {
             background-color: #aaa;
             cursor: pointer;
             color: #ccc;
         }
+        canvas {
+            display: block;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+        #paint {
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
-<div id="undo" class="btn disable" disabled>Undo</div>
-<div id="redo" class="btn disable" disabled>Redo</div>
-<canvas id="canvas">
+<h2 style="text-align: center">Simple WebGL Paint</h2>
+<div id="paint">
+    <div style="margin-bottom: 20px">
+        <div id="undo" class="btn disable" disabled>Undo</div>
+        <div id="redo" class="btn disable" disabled>Redo</div>
+    </div>
+    <canvas id="canvas">
 
-</canvas>
+    </canvas>
+</div>
 <div id="code">
 
 
@@ -109,12 +120,14 @@ void main () {
         };
 
         window.MouseStat = MouseStat;
-        var viewPortWidth = 800;
-        var viewPortHeight = 600;
+        var viewPortWidth = 1024;
+        var viewPortHeight = 768;
 
+        var paint = document.getElementById('paint');
         var undoBtn = document.getElementById('undo');
         var redoBtn = document.getElementById('redo');
         var canvas = document.getElementById('canvas');
+        paint.style['width'] = viewPortWidth + 'px';
         canvas.width = viewPortWidth;
         canvas.height = viewPortHeight;
         var $canvas = $(canvas);
