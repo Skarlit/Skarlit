@@ -11,12 +11,34 @@
     <script src="util/webgl-utils.js"></script>
     <script src="../../javascripts/code.js"></script>
     <style>
+        .disable {
+            pointer-events: none;
+            color: #ccc;
+        }
 
+        .disable:hover {
+            cursor: not-allowed;
+        }
+
+        .btn {
+            display: inline-block;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            font-family: cursive;
+            padding: 5px 15px;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background-color: #aaa;
+            cursor: pointer;
+            color: #ccc;
+        }
     </style>
 </head>
 <body>
-<button id="undo" disabled>Undo</button>
-<button id="redo" disabled>Redo</button>
+<div id="undo" class="btn disable" disabled>Undo</div>
+<div id="redo" class="btn disable" disabled>Redo</div>
 <canvas id="canvas">
 
 </canvas>
@@ -44,20 +66,21 @@ void main () {
         this.cursor = this.head;
     };
 
-    List.prototype.forEach = function(filter) {
+    List.prototype.headToCursor = function(filter) {
         var iterator = this.head;
         while(iterator != this.cursor) {
             filter(iterator);
             iterator = iterator.next;
         }
-        filter(this.cursor);
     };
 
     List.prototype.add = function(data) {
         if (!this.head) {
             // first time initalization
-            this.head = new ListNode(0);
-            this.cursor = this.head;
+            this.cursor = new ListNode(0);
+            this.cursor.prev = new ListNode(0);
+            this.head = this.cursor.prev;
+            this.head.next = this.cursor
             return;
         }
         if (this.cursor.next) {  // diverge path
@@ -85,6 +108,7 @@ void main () {
             segments: new List()
         };
 
+        window.MouseStat = MouseStat;
         var viewPortWidth = 800;
         var viewPortHeight = 600;
 
@@ -95,60 +119,6 @@ void main () {
         canvas.height = viewPortHeight;
         var $canvas = $(canvas);
         var canvasOffset = $canvas.offset();
-        function normalize(domX, domY) {
-            return vec2(
-                2 * (domX - canvasOffset.left)/viewPortWidth - 1,
-                1 - 2 * (domY - canvasOffset.top)/viewPortHeight
-            );
-        }
-        canvas.addEventListener('mousedown', function(e) {
-            MouseStat.down = true;
-            // Copy the last position in segments and add to segments
-            MouseStat.segments.add();
-            MouseStat.trails[MouseStat.segments.cursor.data] = normalize(e.clientX, e.clientY);
-        });
-        canvas.addEventListener('mouseup', function() {
-            MouseStat.down = false;
-            redoBtn.disabled =!( MouseStat.segments.cursor.next);
-            undoBtn.disabled =!( MouseStat.segments.cursor.prev);
-        });
-        canvas.addEventListener('mousemove', function(e) {
-            if (MouseStat.down) {
-                MouseStat.segments.cursor.data++;
-                MouseStat.trails[MouseStat.segments.cursor.data] = normalize(e.clientX, e.clientY);
-                gl.bufferData(gl.ARRAY_BUFFER, flatten(MouseStat.trails), gl.STATIC_DRAW);
-                draw();
-            }
-        });
-
-        function draw() {
-            gl.clear(gl.COLOR_BUFFER_BIT);
-            MouseStat.segments.forEach(function(iterator) {
-                if(iterator.next) {
-                    gl.drawArrays(gl.LINE_STRIP, iterator.data, iterator.next.data - iterator.data);
-                }
-            });
-        }
-
-        undoBtn.addEventListener('click', function() {
-            if (MouseStat.segments.cursor.prev) {
-                MouseStat.segments.cursor = MouseStat.segments.cursor.prev;
-                redoBtn.disabled = false;
-                draw();
-            } else {
-                this.disabled = true;
-            }
-        });
-
-        redoBtn.addEventListener('click', function() {
-            if (MouseStat.segments.cursor.next) {
-                MouseStat.segments.cursor = MouseStat.segments.cursor.next;
-                undoBtn.disabled = false;
-                draw();
-            } else {
-                this.disabled = true;
-            }
-        });
 
         // Init GL
         gl = WebGLUtils.setupWebGL( canvas );
@@ -164,6 +134,77 @@ void main () {
         gl.vertexAttribPointer( program.position, 2, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray( program.position);
         gl.lineWidth(10);
+
+        function draw() {
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            if (MouseStat.segments.head == MouseStat.segments.cursor) {
+                gl.drawArrays(gl.LINE_STRIP, 0, 0);
+                return;
+            }
+            MouseStat.segments.headToCursor(function(iterator) {
+                if(iterator.next) {
+                    gl.drawArrays(gl.LINE_STRIP, iterator.data, iterator.next.data - iterator.data);
+                }
+            });
+        }
+
+        function normalize(domX, domY) {
+            return vec2(
+                    2 * (domX - canvasOffset.left)/viewPortWidth - 1,
+                    1 - 2 * (domY - canvasOffset.top)/viewPortHeight
+            );
+        }
+
+        function disable(el, toggle) {
+            if(toggle) {
+                el.disabled = true;
+                el.classList.add('disable');
+            } else {
+                el.disabled = false;
+                el.classList.remove('disable');
+            }
+        }
+
+        canvas.addEventListener('mousedown', function(e) {
+            MouseStat.down = true;
+            // Copy the last position in segments and add to segments
+            MouseStat.segments.add();
+            MouseStat.trails[MouseStat.segments.cursor.data] = normalize(e.clientX, e.clientY);
+        });
+        canvas.addEventListener('mouseup', function() {
+            MouseStat.down = false;
+            disable(redoBtn, !( MouseStat.segments.cursor.next));
+            disable(undoBtn, !( MouseStat.segments.cursor.prev));
+        });
+        canvas.addEventListener('mousemove', function(e) {
+            if (MouseStat.down) {
+                MouseStat.segments.cursor.data++;
+                MouseStat.trails[MouseStat.segments.cursor.data] = normalize(e.clientX, e.clientY);
+                gl.bufferData(gl.ARRAY_BUFFER, flatten(MouseStat.trails), gl.STATIC_DRAW);
+                draw();
+            }
+        });
+
+        undoBtn.addEventListener('click', function() {
+            if (MouseStat.segments.cursor.prev) {
+                MouseStat.segments.cursor = MouseStat.segments.cursor.prev;
+                disable(redoBtn, false);
+                draw();
+            } else {
+                disable(undoBtn, true);
+            }
+        });
+
+        redoBtn.addEventListener('click', function() {
+            if (MouseStat.segments.cursor.next) {
+                MouseStat.segments.cursor = MouseStat.segments.cursor.next;
+                disable(undoBtn, false);
+                draw();
+            } else {
+                disable(redoBtn, true);
+            }
+        });
+
 
         // Show code;
         Code.render(document.getElementById('code'),

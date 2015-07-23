@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="191cd67e-22ba-46ba-bbf5-b5cfb37b87bd" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/course/webgl/hw_2.html" afterPath="$PROJECT_DIR$/course/webgl/hw_2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/javascripts/thirdparty/react.min.js" afterPath="$PROJECT_DIR$/javascripts/thirdparty/react.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Skarlit.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,8 +48,8 @@
           <file leaf-file-name="hw_2.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/course/webgl/hw_2.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.76975167">
-                  <caret line="147" column="20" selection-start-line="147" selection-start-column="20" selection-end-line="147" selection-end-column="20" />
+                <state vertical-scroll-proportion="0.51170963">
+                  <caret line="59" column="1" selection-start-line="59" selection-start-column="1" selection-end-line="59" selection-end-column="1" />
                   <folding />
                 </state>
               </provider>
@@ -1043,8 +1041,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/course/webgl/hw_2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.76975167">
-          <caret line="147" column="20" selection-start-line="147" selection-start-column="20" selection-end-line="147" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.51170963">
+          <caret line="59" column="1" selection-start-line="59" selection-start-column="1" selection-end-line="59" selection-end-column="1" />
           <folding />
         </state>
       </provider>
