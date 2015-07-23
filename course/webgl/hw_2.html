@@ -178,6 +178,10 @@ void main () {
             }
         }
 
+        window.addEventListener('resize', function() {
+            canvasOffset = $('#canvas').offset();
+        });
+
         canvas.addEventListener('mousedown', function(e) {
             MouseStat.down = true;
             // Copy the last position in segments and add to segments
