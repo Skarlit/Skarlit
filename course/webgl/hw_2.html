@@ -11,9 +11,12 @@
     <script src="util/webgl-utils.js"></script>
     <script src="../../javascripts/code.js"></script>
     <style>
+        h2 {
+            font-family: cursive;
+        }
         .disable {
             pointer-events: none;
-            color: #ccc;
+            color: white;
         }
         .disable:hover {
             cursor: not-allowed;
@@ -29,13 +32,16 @@
         .btn:hover {
             background-color: #aaa;
             cursor: pointer;
-            color: #ccc;
+            color: #aaa;
         }
         canvas {
             display: block;
             border: 1px solid #ccc;
             border-radius: 10px;
             margin: 0 auto;
+        }
+        canvas:hover {
+            cursor: default;
         }
         #paint {
             margin: 0 auto;
