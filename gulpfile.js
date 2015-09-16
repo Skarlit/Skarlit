@@ -2,13 +2,14 @@ var gulp = require('gulp');
 var webpack = require('webpack');
 var util = require('gulp-util');
 var path = require('path');
+var express = require('express');
 
 function webpackConfig(opt) {
     opt = opt || {};
     var minifiedOpt = (opt.production ? {} : {test: /vendors\.js/});
     return  {
         entry: {
-            main: path.resolve(__dirname, "javascripts/main.js"),
+            main: [path.resolve(__dirname, "javascripts/main.js")],
             vendors: ['react','react-router', 'three', 'material-ui']
         },
         output: {
@@ -31,17 +32,28 @@ function webpackConfig(opt) {
     };
 };
 
+var webPackServerConfig = {
+    // webpack-dev-server options
+
+    contentBase: ".",
+    // or: contentBase: "http://localhost/",
+    historyApiFallback: false
+};
+
 gulp.task('build', function() {
-    webpack(webpackConfig({production: false}), function(err, stats) {
+    webpack(webpackConfig({production: false}) , function(err, stats) {
         if(err) throw new util.PluginError("webpack", err);
         util.log("[webpack]", stats.toString({
             // output options
         }));
     });
+    var app = express();
+    app.use(express.static('.'));
+    app.listen(8080);
 });
 
 
-gulp.task('build-prod', function() {
+gulp.task('build-release', function() {
     webpack(webpackConfig({production: true}), function(err, stats) {
         if(err) throw new util.PluginError("webpack", err);
         util.log("[webpack]", stats.toString({
