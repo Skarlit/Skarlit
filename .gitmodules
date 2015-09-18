@@ -1,0 +1,3 @@
+[submodule "javascripts/algorithm"]
+	path = javascripts/algorithm
+	url = https://github.com/Skarlit/algorithm.git

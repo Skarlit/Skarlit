@@ -11,18 +11,36 @@ var ContentSend = mui.ContentSend;
 var ActionInfo = mui.ActionInfo;
 var ListDivider = mui.ListDivider;
 var ContentDrafts = mui.ContentDrafts;
+var Avatar = mui.Avatar;
+var CardHeader = mui.CardHeader;
+var Card = mui.Card;
+var CardMedia = mui.CardMedia;
+var CardTitle = mui.CardTitle;
+var CardText = mui.CardText;
 
 var Experiments = React.createClass({
     mixins: [ThemeMixin],
     render: function() {
         return <div style={styles.base}>
-            <List>
-                <ListItem primaryText="Work in Progress" />
-                <ListItem primaryText="Work in Progress" />
-                <ListItem primaryText="Work in Progress"  />
-                <ListItem primaryText="Work in Progress"  />
-                <ListItem primaryText="Work in Progress" />
-            </List>
+
+            <Card style={styles.card} initiallyExpanded={true}>
+                <CardHeader
+                    title="_"
+                    subtitle="crude algorithms implements."
+                    avatar={<Avatar style={styles.avatar}>A</Avatar>}
+                    showExpandableButton={true}>
+                </CardHeader>
+                <CardText expandable={true}>
+                    <List>
+                        <ListItem primaryText="Work in Progress" />
+                        <ListItem primaryText="Work in Progress" />
+                        <ListItem primaryText="Work in Progress"  />
+                        <ListItem primaryText="Work in Progress"  />
+                        <ListItem primaryText="Work in Progress" />
+                    </List>
+                </CardText>
+            </Card>
+
             <ListDivider />
             <List>
                 <ListItem primaryText="Work in Progress"  />
@@ -40,7 +58,11 @@ var styles = {
         width: "60%",
         margin: "0 auto",
         maxWidth: "800px"
-    }
+    },
+    card: {
+      backgroundColor: "#ddd"
+    },
+    avatar: {color: "#BFFF00", backgroundColor: "#000"}
 };
 
 export default Experiments;

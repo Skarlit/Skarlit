@@ -33,7 +33,6 @@ var Index = React.createClass({
     }
 });
 
-
 var styles = {
     base: {
         width: "60%",

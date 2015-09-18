@@ -9,9 +9,11 @@ var App = React.createClass({
     mixins: [RouteContext],
     render: function() {
         console.log(this.context)
-        return <div>
+        return <div style={styles.app}>
             <NavBar />
-            {this.props.children}
+            <div style={{marginTop: "150px"}}>
+              {this.props.children}
+            </div>
         </div>
     }
 });
@@ -26,17 +28,24 @@ var NotFound = React.createClass({
 });
 
 var styles = {
+    app: {
+        backgroundColor: "#333",
+        height: "100%",
+        width: "100%"
+    },
     base: {
-        width: "60%",
-        margin: "120px auto",
+        width: "50%",
+        margin: "0 auto",
         maxWidth: "800px"
     },
     notFound: {
         backgroundImage: "url(" + "http://www.uchy.pl/error_404_by_pichu007-d6gdo7j.png" + ")",
-        backgroundSize: "contain",
+        backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         width: "100%",
-        height: "600px"
+        height: "auto",
+        paddingTop: "440px",
+        backgroundColor: "#ccc"
     }
 };
 
