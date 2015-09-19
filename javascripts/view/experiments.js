@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router";
 import mui from "material-ui";
 import ThemeMixin from "../mixins/material_mixin.js";
+import PageFrame from "../component/page_frame.js";
 
 var List = mui.List;
 var ListItem = mui.ListItem;
@@ -21,7 +22,7 @@ var CardText = mui.CardText;
 var Experiments = React.createClass({
     mixins: [ThemeMixin],
     render: function() {
-        return <div style={styles.base}>
+        return <PageFrame style={styles.base} fadeIn={600}>
 
             <Card style={styles.card} initiallyExpanded={true}>
                 <CardHeader
@@ -32,7 +33,7 @@ var Experiments = React.createClass({
                 </CardHeader>
                 <CardText expandable={true}>
                     <List>
-                        <ListItem primaryText="Work in Progress" />
+                        <ListItem primaryText="Tree Printer" />
                         <ListItem primaryText="Work in Progress" />
                         <ListItem primaryText="Work in Progress"  />
                         <ListItem primaryText="Work in Progress"  />
@@ -48,7 +49,7 @@ var Experiments = React.createClass({
                 <ListItem primaryText="Work in Progress" />
                 <ListItem primaryText="Work in Progress"/>
             </List>
-        </div>
+        </PageFrame>
     }
 });
 
@@ -57,7 +58,8 @@ var styles = {
     base: {
         width: "60%",
         margin: "0 auto",
-        maxWidth: "800px"
+        maxWidth: "800px",
+        display: "none"
     },
     card: {
       backgroundColor: "#ddd"

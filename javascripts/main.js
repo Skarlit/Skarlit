@@ -1,4 +1,3 @@
-
 import React from "react"
 import { Router, Route, Link, RouteContext, IndexRoute} from 'react-router'
 import NavBar from "./component/navbar.js"
@@ -6,9 +5,7 @@ import Experiments from "./view/experiments.js"
 import Index from "./view/index.js"
 
 var App = React.createClass({
-    mixins: [RouteContext],
     render: function() {
-        console.log(this.context)
         return <div style={styles.app}>
             <NavBar />
             <div style={{marginTop: "150px"}}>
@@ -40,11 +37,11 @@ var styles = {
     },
     notFound: {
         backgroundImage: "url(" + "http://www.uchy.pl/error_404_by_pichu007-d6gdo7j.png" + ")",
-        backgroundSize: "cover",
+        backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
         width: "100%",
         height: "auto",
-        paddingTop: "440px",
+        paddingTop: "70%",
         backgroundColor: "#ccc"
     }
 };

@@ -6,7 +6,7 @@ var express = require('express');
 
 function webpackConfig(opt) {
     opt = opt || {};
-    var minifiedOpt = (opt.production ? {} : {test: /vendors\.js/});
+    var minifiedOpt = (opt.production ? {test: /\.js$/} : {test: /vendors\.js/});
     return  {
         entry: {
             main: [path.resolve(__dirname, "javascripts/main.js")],
@@ -16,7 +16,7 @@ function webpackConfig(opt) {
             path: path.resolve(__dirname, 'build'),
             filename: "[name].js"
         },
-        watch: true,
+        watch: (opt.production ? false : true),
         module: {
             preloaders: [
                 {test: /\.js$/, exclude: /node_modules/, loader: "jsxhint-loader"}
