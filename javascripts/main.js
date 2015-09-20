@@ -3,14 +3,16 @@ import { Router, Route, Link, RouteContext, IndexRoute} from 'react-router'
 import NavBar from "./component/navbar.js"
 import Experiments from "./view/experiments.js"
 import Index from "./view/index.js"
+import Demo from "./view/demo.js"
+import PageFrame from "./component/page_frame.js";
 
 var App = React.createClass({
     render: function() {
         return <div style={styles.app}>
             <NavBar />
-            <div style={{marginTop: "150px"}}>
+            <PageFrame style={{marginTop: "80px"}} fadeIn={600}>
               {this.props.children}
-            </div>
+            </PageFrame>
         </div>
     }
 });
@@ -46,14 +48,19 @@ var styles = {
     }
 };
 
+var _titleChange = function(title) {
+    document.title = `Skarlit | ${title}`;
+};
+
 
 window.onload = function() {
     React.render((
         <Router>
             <Route name="app" path="/" component={App}>
-                <IndexRoute component={Index} />
-                <Route path="experiments" component={Experiments} />
-                <Route path="*" component={NotFound}/>
+                <IndexRoute component={Index} onEnter={_titleChange.bind(this, "Home")}/>
+                <Route path="experiments" component={Experiments} onEnter={_titleChange.bind(this, "Experiments")} />
+                <Route path="experiments/:name" component={Demo} onEnter={_titleChange.bind(this, "Demo")} />
+                <Route path="*" component={NotFound} onEnter={_titleChange.bind(this, "Not Found")}/>
             </Route>
         </Router>
     ), document.body)

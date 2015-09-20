@@ -3,15 +3,18 @@ var webpack = require('webpack');
 var util = require('gulp-util');
 var path = require('path');
 var express = require('express');
+var merge = require('merge');
+
+var entry = {
+    main: [path.resolve(__dirname, "javascripts/main.js")],
+    vendors: ['react','react-router', 'three', 'material-ui']
+};
 
 function webpackConfig(opt) {
     opt = opt || {};
     var minifiedOpt = (opt.production ? {test: /\.js$/} : {test: /vendors\.js/});
     return  {
-        entry: {
-            main: [path.resolve(__dirname, "javascripts/main.js")],
-            vendors: ['react','react-router', 'three', 'material-ui']
-        },
+        entry: entry,
         output: {
             path: path.resolve(__dirname, 'build'),
             filename: "[name].js"
