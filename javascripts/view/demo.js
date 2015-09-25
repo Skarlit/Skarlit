@@ -25,7 +25,10 @@ var Demo = React.createClass({
                        subtitleStyle={styles.subTitleText}
                        title={config.title}
                        subtitle={config.description}/>
-            <iframe style={merge(true, styles.iframe, config.wrapperCss, {maxHeight: maxHeight})} seamless={true} sandbox="">
+            <iframe src={config.src}
+                    style={merge(true, styles.iframe, config.wrapperCss, {maxHeight: maxHeight})}
+                    seamless={true}
+                    sandbox="allow-scripts">
 
             </iframe>
         </div>

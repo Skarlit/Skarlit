@@ -1,6 +1,12 @@
-window.onload = function() {
+import THREE from "three";
+
+var InitMouse = function(canvas) {
     // Canvas setup
-    var mouseScreen = document.createElement('canvas');
+    var mouseScreen = canvas;
+    mouseScreen.style['position'] = 'absolute';
+    mouseScreen.style['top'] = '0';
+    mouseScreen.style['left'] = '0';
+    mouseScreen.style['pointerEvents'] = 'none';
     mouseScreen.id = 'mouse-wrap';
     var w = window.innerWidth;
     var h = window.innerHeight;
@@ -92,6 +98,7 @@ window.onload = function() {
     var pSystem = new ParticleSystem(particleNum, mousePos);
     var vertexShader = [
         "uniform vec3 color;",
+        "uniform mat3 rot;",
         "attribute float lifeTime;",
         "attribute float emitted;",
         "varying vec3 vColor;",
@@ -102,7 +109,7 @@ window.onload = function() {
             "vColor = color;",
             "vLifeTime = lifeTime;",
             "vEmitted = emitted;",
-            "gl_PointSize = 100.0;",
+            "gl_PointSize = 70.0;",
             "gl_Position = projectionMatrix * modelViewMatrix *vec4(position, 1.0);",
         "}"
     ].join("\n");
@@ -121,12 +128,13 @@ window.onload = function() {
             "gl_FragColor = vec4(vColor,  gl_FragColor.y * vEmitted * vEmitted *vLifeTime/constLifeTime) * gl_FragColor ;",
         "}"
     ].join("\n");
+
     var material = new THREE.ShaderMaterial({
         uniforms: {
             constLifeTime: {type: "f", value: pSystem.constLifeTime},
             time: {type: "f", value: 1.0},
             color: {type: "c", value: new THREE.Color(0xb5e853)},
-            texture: {type: 't', value: THREE.ImageUtils.loadTexture('img/star.png')}
+            texture: {type: 't', value: THREE.ImageUtils.loadTexture('img/star.jpg')}
         },
         attributes:  {
             lifeTime: {type: "f", value: pSystem.lifeTimes},
@@ -198,8 +206,10 @@ window.onload = function() {
     });
 
     window.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
+       // e.preventDefault();
         pSystem.emitChunk(30, mousePos);
     });
     render();
 };
+
+export default InitMouse;

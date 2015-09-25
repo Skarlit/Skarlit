@@ -5,14 +5,19 @@ import Experiments from "./view/experiments.js"
 import Index from "./view/index.js"
 import Demo from "./view/demo.js"
 import PageFrame from "./component/page_frame.js";
+import InitMouse from "./mouse";
 
 var App = React.createClass({
+    componentDidMount: function() {
+      InitMouse(React.findDOMNode(this.refs.background));
+    },
     render: function() {
         return <div style={styles.app}>
             <NavBar />
             <PageFrame style={{marginTop: "80px"}} fadeIn={600}>
               {this.props.children}
             </PageFrame>
+            <canvas ref="background"></canvas>
         </div>
     }
 });

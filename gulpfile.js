@@ -5,9 +5,12 @@ var path = require('path');
 var express = require('express');
 var merge = require('merge');
 
+var algor = "javascripts/algorithm/";
+
 var entry = {
     main: [path.resolve(__dirname, "javascripts/main.js")],
-    vendors: ['react','react-router', 'three', 'material-ui']
+    vendors: ['react','react-router', 'three', 'material-ui'],
+    treePrint: [path.resolve(__dirname, algor + 'tree_print/main.js')]
 };
 
 function webpackConfig(opt) {
