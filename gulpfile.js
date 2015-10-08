@@ -10,7 +10,8 @@ var algor = "javascripts/algorithm/";
 var entry = {
     main: [path.resolve(__dirname, "javascripts/main.js")],
     vendors: ['react','react-router', 'three', 'material-ui'],
-    treePrint: [path.resolve(__dirname, algor + 'tree_print/main.js')]
+    treePrint: [path.resolve(__dirname, algor + 'tree_print/main.js')],
+    treePrint2: [path.resolve(__dirname, algor + 'tree_print_2/main.js')]
 };
 
 function webpackConfig(opt) {

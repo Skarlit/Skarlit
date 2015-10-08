@@ -7,7 +7,6 @@
     "merge": "^1.2.0",
     "radium": "^0.14.1",
     "react": "^0.13.3",
-    "react-addons": "^0.9.1-deprecated",
     "react-router": "^1.0.0-rc1",
     "react-tap-event-plugin": "^0.1.7",
     "three": "^0.71.1"
