@@ -1,21 +1,21 @@
-webpackJsonp([2],{
+webpackJsonp([3],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(376);
+	module.exports = __webpack_require__(378);
 
 
 /***/ },
 
-/***/ 376:
+/***/ 378:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-	var _tree = __webpack_require__(377);
+	var _tree = __webpack_require__(379);
 
 	var _tree2 = _interopRequireDefault(_tree);
 
@@ -42,12 +42,12 @@ webpackJsonp([2],{
 	    for (var i = 0; i < 40; i++) {
 	        tree.insert(stringGen(parseInt((10 + 10 * Math.random()) / 2)));
 	    }
-	    tree.printLevel();
+	    tree.printDepth();
 	};
 
 /***/ },
 
-/***/ 377:
+/***/ 379:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -62,7 +62,7 @@ webpackJsonp([2],{
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var _node = __webpack_require__(378);
+	var _node = __webpack_require__(380);
 
 	var _node2 = _interopRequireDefault(_node);
 
@@ -71,6 +71,8 @@ webpackJsonp([2],{
 	        _classCallCheck(this, Tree);
 
 	        this.root = new _node2["default"](string);
+	        this.padding = 15;
+	        this.maxX = []; // store max x for each level;
 	    }
 
 	    _createClass(Tree, [{
@@ -91,6 +93,38 @@ webpackJsonp([2],{
 	                head++;
 	            }
 	        }
+	    }, {
+	        key: "printDepth",
+	        value: function printDepth() {
+	            this.visit(this.root, 0);
+	        }
+	    }, {
+	        key: "visit",
+	        value: function visit(node, depth) {
+	            // Handle leaves
+	            if (!node.children || node.children.length == 0) {
+	                if (this.maxX[depth]) {
+	                    node.x = this.maxX[depth] + this.padding;
+	                    this.maxX[depth] += node.val.length;
+	                } else {
+	                    this.maxX[depth] = 0;
+	                    node.x = 0;
+	                }
+	                return;
+	            }
+	            for (var i = 0; i < node.children.length; i++) {
+	                this.visit(node.children[i], depth + 1);
+	            }
+	            // Handle parent;
+	            if (this.maxX[depth]) {
+	                var x = (node.children[0] + node.children[node.children.length - 1]) / 2;
+	                node.x = x;
+	                this.maxX[depth] = node.children[node.children.length - 1] + this.padding;
+	            } else {
+	                this.maxX[depth] = 0;
+	                node.x = 0;
+	            }
+	        }
 	    }]);
 
 	    return Tree;
@@ -101,7 +135,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 378:
+/***/ 380:
 /***/ function(module, exports) {
 
 	"use strict";
