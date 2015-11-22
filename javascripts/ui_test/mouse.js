@@ -17,6 +17,7 @@ var InitMouse = function(canvas) {
         h = window.innerHeight;
         mouseScreen.width = w;
         mouseScreen.height = h;
+        renderer.setSize( window.innerWidth, window.innerHeight );
     });
     document.body.appendChild(mouseScreen);
 
@@ -75,7 +76,7 @@ var InitMouse = function(canvas) {
         if (!this.emitted[this.emitIndex]) {
             pSystem.reset(this.emitIndex, mousePos);
             this.emitted[this.emitIndex] = 1.0;
-            this.velocity[this.emitIndex].set(10*Math.random()-5, 0, 0);
+            this.velocity[this.emitIndex].set(6*Math.random()-3, 0, 3* Math.random() - 1.5);
             this.emitIndex = (this.emitIndex + 1) % this.n;
             this.needsUpdate = true;
         }
@@ -109,7 +110,7 @@ var InitMouse = function(canvas) {
             "vColor = color;",
             "vLifeTime = lifeTime;",
             "vEmitted = emitted;",
-            "gl_PointSize = 70.0;",
+            "gl_PointSize = 20.0;",
             "gl_Position = projectionMatrix * modelViewMatrix *vec4(position, 1.0);",
         "}"
     ].join("\n");
@@ -134,7 +135,7 @@ var InitMouse = function(canvas) {
             constLifeTime: {type: "f", value: pSystem.constLifeTime},
             time: {type: "f", value: 1.0},
             color: {type: "c", value: new THREE.Color(0xb5e853)},
-            texture: {type: 't', value: THREE.ImageUtils.loadTexture('img/star.jpg')}
+            texture: {type: 't', value: THREE.ImageUtils.loadTexture('img/flare.png')}
         },
         attributes:  {
             lifeTime: {type: "f", value: pSystem.lifeTimes},

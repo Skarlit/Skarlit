@@ -9,7 +9,7 @@ var algor = "javascripts/algorithm/";
 
 var entry = {
     main: [path.resolve(__dirname, "javascripts/main.js")],
-    vendors: ['react','react-router', 'three', 'material-ui', 'codemirror'],
+    vendors: ['react','react-router', 'three', 'jquery'],
     treePrint: [path.resolve(__dirname, algor + 'tree_print/main.js')],
     treePrint2: [path.resolve(__dirname, algor + 'tree_print_2/main.js')],
     player: [path.resolve(__dirname, algor + 'filter/main.js')],
@@ -25,11 +25,15 @@ function webpackConfig(opt) {
             filename: "[name].js"
         },
         watch: (opt.production ? false : true),
+        external: {
+          "jquery": "jQuery"
+        },
         module: {
             preloaders: [
                 {test: /\.js$/, exclude: /node_modules/, loader: "jsxhint-loader"}
             ],
             loaders: [
+                {test: require.resolve("jquery"), loader: "expose?jQuery" },
                 {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
             ]
         },

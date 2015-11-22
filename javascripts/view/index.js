@@ -1,44 +1,64 @@
 import React from "react";
 import {Link} from "react-router";
-import mui from "material-ui";
-import ThemeMixin from "../mixins/material_mixin.js";
+import Animator from "../utils/sync_animator.js";
+import $ from "jquery";
 
-
-var Card = mui.Card;
-var CardHeader = mui.CardHeader;
-var CardMedia = mui.CardMedia;
-var CardTitle = mui.CardTitle;
-var CardActions = mui.CardActions;
-var CardText = mui.CardText;
-var Avatar = mui.Avatar;
-var FlatButton = mui.FlatButton;
-
+var intro = `My name is Ran.
+I am a web application engineer.
+I love learning and building cool things.
+`;
 
 var Index = React.createClass({
-    mixins: [ThemeMixin],
+    componentDidMount: function() {
+        var $titleEl = $(this.refs.title.getDOMNode());
+        $titleEl.fadeIn(300);
+        var $introLetters = $('.intro-letter');
+        for(var i = 0; i < $introLetters.length; i++) {
+            (function(j) {
+                Animator.animate({
+                    duration: 50,
+                    step: function(countDown, dt) {
+                        if (countDown > 0) {
+                            $introLetters[j].textContent = intro[Math.floor(Math.random()*intro.length)];
+                        } else {
+                            $introLetters[j].textContent = intro[j];
+                        }
+                    }
+                })
+            })(i);
+        }
+    },
+    componentWillUnmount: function() {
+        Animator.flush();
+    },
     render: function() {
-        return <div style={styles.base}>
-            <Card initiallyExpanded={true}>
-                <CardHeader
-                    title="Hello,"
-                    subtitle="world."
-                    avatar={<Avatar style={{color:'red'}}>S</Avatar>}
-                    showExpandableButton={true}>
-                </CardHeader>
-                <CardText expandable={true}>
-                    <h3>Rewriting everything in Material-UI....</h3>
-                </CardText>
-            </Card>
+        var introLetters = intro.split('');
+        var introText = [];
+        for(var i = 0; i < introLetters.length; i++) {
+            introText.push(<span className="intro-letter"></span>);
+        }
+        return <div style={home}>
+                <div ref="title" style={title}>
+                   HELLO.
+                </div>
+                <div style={text}>
+                    {introText}
+                </div>
         </div>
     }
 });
 
-var styles = {
-    base: {
-        width: "60%",
-        margin: "120px auto",
-        maxWidth: "800px"
-    }
+var home = {
+    position:" absolute",
+    width:" 640px",
+    height:" 480px",
+    top:" 50%",
+    marginTop:" -240px",
+    left:" 50%",
+    marginLeft:" -320px"
 };
+var title = {'fontSize': '72px',  color: '#aaa'};
+var text = {'fontSize': '30px', lineHeight: '70px', marginTop: '40px', color: '#999'};
+
 
 export default Index;
