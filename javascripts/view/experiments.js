@@ -6,19 +6,20 @@ import $ from "jquery";
 
 var Exp = React.createClass({
     getInitialState: function() {
-        return {toggled: false};
+        return {toggled: false, frameUrl: ''};
     },
     componentDidMount: function() {
     },
-    toggle: function() {
+    toggle: function(url) {
         if (this.state.toggled) {
-
+            this.setState({frameUrl: url});
         } else {
-            this.animateList();
+            this.animateList(url);
         }
     },
-    animateList: function() {
+    animateList: function(url) {
         var $list = $(this.refs.panel.getDOMNode());
+        var $this = this;
         var listWidth = $list.width();
         var listFinalWidth = 250;
         Animator.animate({
@@ -51,6 +52,9 @@ var Exp = React.createClass({
             step: function(countDown, dt) {
                 $frame.width(10* countDown/ 400 + (1 - countDown / 400) * (bodyWidth - listFinalWidth - marginLeft));
                 $frame.height(10 * countDown/ 400 + (1 - countDown / 400) * (window.innerHeight - 200));
+            },
+            callback: function() {
+                $this.setState({frameUrl: url})
             }
         })
     },
@@ -61,17 +65,17 @@ var Exp = React.createClass({
         return <div style={{position: 'relative'}}>
             <div ref="panel" className="panel exp">
                 <div className="listview">
-                    <div onClick={this.toggle} className="list">
+                    <div onClick={this.toggle.bind(null, "/javascripts/algorithm/magic_wand/index.html")} className="list">
                         <span className="list-icon icon-font-icon"></span>
-                        <span className="list-title">...list title...</span>
+                        <span className="list-title">Magic Wand</span>
                     </div>
                     <div className="list">
                         <span className="list-icon icon-font-icon"></span>
-                        <span className="list-title">...list title...</span>
+                        <span className="list-title"></span>
                     </div>
                 </div>
             </div>
-            <iframe ref="frame" style={frameStyle} seamless={true} ></iframe>
+            <iframe ref="frame" style={frameStyle} seamless={true} src={this.state.frameUrl} ></iframe>
         </div>
     }
 });

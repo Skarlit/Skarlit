@@ -12,6 +12,7 @@ var entry = {
     vendors: ['react','react-router', 'three', 'jquery'],
     treePrint: [path.resolve(__dirname, algor + 'tree_print/main.js')],
     treePrint2: [path.resolve(__dirname, algor + 'tree_print_2/main.js')],
+    magicWand: [path.resolve(__dirname, algor + 'magic_wand/index.js')],
     player: [path.resolve(__dirname, algor + 'filter/main.js')],
 };
 
