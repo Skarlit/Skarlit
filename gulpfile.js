@@ -14,6 +14,7 @@ var entry = {
     treePrint2: [path.resolve(__dirname, algor + 'tree_print_2/main.js')],
     magicWand: [path.resolve(__dirname, algor + 'magic_wand/index.js')],
     player: [path.resolve(__dirname, algor + 'filter/main.js')],
+    wordsplit: [path.resolve(__dirname, algor + 'SplitString/index.js')]
 };
 
 function webpackConfig(opt) {

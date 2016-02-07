@@ -23,7 +23,7 @@ var NavBar = React.createClass({
             </ul>
             <ul className="app-bar-menu right">
                 <li onClick={this.changeTab.bind(this,"HOME")}><Link to="/">HOME</Link></li>
-                <li onClick={this.changeTab.bind(this,"EXPERIMENT")}><Link to="/exp/index" className="disable">EXPERIMENTS</Link></li>
+                <li onClick={this.changeTab.bind(this,"EXPERIMENT")}><Link to="/exp/index">EXPERIMENTS</Link></li>
                 <li onClick={this.changeTab.bind(this,"POSTS")}><a className="disable">POSTS</a></li>
                 <li onClick={this.changeTab.bind(this,"BIO")}><Link to="/bio" className="disable">BIO</Link></li>
                 <li onClick={this.changeTab.bind(this,"CONTACT")}><Link to="/contact" className="disable">CONTACT</Link></li>

@@ -54,7 +54,7 @@ var Exp = React.createClass({
                 $frame.height(10 * countDown/ 400 + (1 - countDown / 400) * (window.innerHeight - 200));
             },
             callback: function() {
-                $this.setState({frameUrl: url})
+                $this.setState({frameUrl: url, toggled: true})
             }
         })
     },
@@ -69,9 +69,9 @@ var Exp = React.createClass({
                         <span className="list-icon icon-font-icon"></span>
                         <span className="list-title">Magic Wand</span>
                     </div>
-                    <div className="list">
+                    <div onClick={this.toggle.bind(null, "/javascripts/algorithm/SplitString/index.html")} className="list">
                         <span className="list-icon icon-font-icon"></span>
-                        <span className="list-title"></span>
+                        <span className="list-title">String Split</span>
                     </div>
                 </div>
             </div>
