@@ -74,4 +74,7 @@ gulp.task('build-release', function() {
             // output options
         }));
     });
+    var app = express();
+    app.use(express.static('.'));
+    app.listen(8080);
 });
