@@ -7,6 +7,7 @@ import Bio from "./view/bio.js";
 import Contact from "./view/contact";
 import Index from "./view/index.js";
 import Animator from "./utils/sync_animator.js";
+import {Rain} from "./view/background.js";
 
 var App = React.createClass({
     componentDidMount: function() {
@@ -15,13 +16,14 @@ var App = React.createClass({
     },
     render: function() {
         return <div className="app">
+            <canvas id="canvas-overlay" ref="background"></canvas>
+            <div className="canvas-label">Code Rain v0.0.1</div>
             <div className="body">
                 <NavBar />
                 <div className="body-content">
                    {this.props.children}
                 </div>
             </div>
-            <canvas id="canvas-overlay" ref="background"></canvas>
         </div>
     }
 });
@@ -35,6 +37,7 @@ var NotFound = React.createClass({
 });
 
 window.onload = function() {
+
     React.render((
         <Router>
             <Route name="app" path="/" component={App}>
@@ -45,5 +48,7 @@ window.onload = function() {
                 <Route path="*" component={NotFound} />
             </Route>
         </Router>
-    ), document.body)
+    ), document.body, function() {
+        Rain().start();
+    })
 };
