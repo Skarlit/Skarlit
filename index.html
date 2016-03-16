@@ -17,7 +17,6 @@
             }
 
             body {
-                background-image: url('./img/city_night.jpg');
                 min-height: 100%;
                 overflow: hidden;
             }
@@ -32,7 +31,17 @@
                 position: relative;
                 height: 90%;
                 margin: 0px 80px 0px 80px;
+                background-color: rgba(0,0,0,0.4);
             }
+
+            .canvas-label {
+                color: greenyellow;
+                position: fixed;
+                right: 20px;
+                bottom: 20px;
+                font-size: 25px;
+            }
+
             .app-bar {
                 overflow: hidden;
                 position: absolute;
@@ -50,7 +59,6 @@
                 top: 0;
                 left: 0;
                 pointer-events: none;
-                z-index: 10000;
             }
 
             .app-bar .app-bar-menu > li.current-tab {
