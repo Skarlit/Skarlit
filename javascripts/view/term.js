@@ -91,6 +91,10 @@ var TermHead = React.createClass({
 });
 
 var TermBody = React.createClass({
+    componentDidUpdate: function() {
+        var el = this.refs.termBody.getDOMNode();
+        el.scrollTop = el.scrollHeight;
+    },
     getInitialState: function() {
         return {userInput: '', loc: ['~'], dispStack: []}
     },
@@ -102,7 +106,7 @@ var TermBody = React.createClass({
         for(var i = 0;  i < this.state.dispStack.length; i++) {
             history.push(<Output key={'output-' + i } output={this.state.dispStack[i]} />);
         }
-        return <div id="term-body">
+        return <div id="term-body" ref="termBody">
             {history}
             <CurrentLine userInput={this.state.userInput} loc={this.state.loc.join('/')} />
         </div>
@@ -153,6 +157,11 @@ class InputManager {
                     break;
             }
             this.view.setState({userInput: this.inputQueue.join('')});
+        }.bind(this));
+
+        $(window).on('mousewheel', function(e) {
+            var d = e.originalEvent.wheelDelta;
+            this.view.refs.termBody.getDOMNode().scrollTop -= d;
         }.bind(this))
     }
     cloneCurrentLine() {
