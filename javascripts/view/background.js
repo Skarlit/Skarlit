@@ -2,11 +2,14 @@ import THREE from "three";
 
 var vS = `
     attribute float alphas;
+    attribute float offset;
 
     varying float vAlpha;
+    varying float vOffset;
 
     void main() {
         vAlpha = alphas;
+        vOffset = offset;
 
         gl_PointSize = 32.0;
 
@@ -20,14 +23,11 @@ var fS = `
     uniform sampler2D texture;
 
     varying float vAlpha;
-
-    float rand(vec2 co){
-        return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
-    }
+    varying float vOffset;
 
     void main() {
 
-        vec4 color = texture2D(texture, gl_PointCoord * vec2(0.5, 1.0));
+        vec4 color = texture2D(texture, gl_PointCoord * vec2(0.03125, 1.0) + vec2(vOffset, 0.0));
         gl_FragColor = vec4(color.xyz, color.a * vAlpha);
     }
 `;
@@ -74,10 +74,20 @@ function Matrix(w, h) {
     this.h =  h;  // win height
     this.psGeo = new THREE.BufferGeometry();
 
+    this.letterCount = 32;
+    this.alphabetWidth = 1024;
+    this.offsetTable = new Array(32);
+
+    for(var i = 0; i < this.letterCount; i++) {
+        this.offsetTable[i] =  i / this.letterCount;
+    }
+
+
     this.gridSize = 32;
     this.n = Math.ceil(this.h / this.gridSize);
     this.m = Math.ceil(this.w / this.gridSize);
     this.alphas = new Float32Array(this.n * this.m);
+    this.offset = new Float32Array(this.n * this.m);
     this.vertices = new Float32Array(this.n * this.m * 3);
     this.scannerNum = 200;
     this.depth = -5;
@@ -87,6 +97,7 @@ function Matrix(w, h) {
             this.vertices[i * this.m * 3 + j * 3 + 1] =  - i * this.gridSize + this.h / 2;
             this.vertices[i * this.m * 3 + j * 3 + 2] = this.depth;
             this.alphas[i * this.m + j] = 0;
+            this.offset[i * this.m + j] =  this.offsetTable[parseInt(Math.random() * this.letterCount)];
         }
     }
 
@@ -101,12 +112,14 @@ function Matrix(w, h) {
 
     this.psGeo.addAttribute('position', new THREE.BufferAttribute(this.vertices, 3));
     this.psGeo.addAttribute('alphas', new THREE.BufferAttribute(this.alphas, 1));
+    this.psGeo.addAttribute('offset', new THREE.BufferAttribute(this.offset, 1));
 
+    var tex = THREE.ImageUtils.loadTexture('../img/alphabet.png');
+    tex.flipY = false;
     var uniforms = {
         color: { type: "c", value: new THREE.Color( 0x00ffff ) },
-        texture: { type: "t", value: THREE.ImageUtils.loadTexture('../img/alphabet.png')}
+        texture: { type: "t", value: tex}
     };
-
 
     this.psMat = new THREE.ShaderMaterial({
         uniforms: uniforms,
@@ -117,14 +130,16 @@ function Matrix(w, h) {
     this.ps = new THREE.Points(this.psGeo, this.psMat);
     this.ps.position.z = -10;
 
-    this.skipFrame = 3;
+    this.skipFrame = 12;
     this.count = 0;
     this.speed = 100;
 }
 
 Matrix.prototype = {
     update: function(dt) {
+        this.count++;
         var alphas = this.psGeo.attributes.alphas.array;
+        var offset = this.psGeo.attributes.offset.array;
         for(var j = 0; j < this.scanners.length; j++) {
             var idx = Math.round(this.scanners[j].row) * this.m + this.scanners[j].col;
             alphas[idx] = Math.min(1, alphas[idx] + 0.2);
@@ -138,9 +153,17 @@ Matrix.prototype = {
             }
         }
         for(var i = 0; i < alphas.length; i++) {
-            alphas[i] *= 0.95;
+            alphas[i] *= 0.98;
         }
+        if (this.count > this.skipFrame) {
+            this.count = 0;
+            for(var i = 0; i < 100; i++) {
+                offset[parseInt(offset.length * Math.random())] = this.offsetTable[parseInt(Math.random() * this.letterCount)];
+            }
+        }
+
         this.psGeo.attributes.alphas.needsUpdate = true;
+        this.psGeo.attributes.offset.needsUpdate = true;
     }
 };
 

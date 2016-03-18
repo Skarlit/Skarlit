@@ -84,7 +84,7 @@ var TermHead = React.createClass({
     },
     render: function() {
         return <div id="term-head">
-            <div className="title">Ran Xie's Homepage</div>
+            <div className="title">Welcome to Ran Xie's Homepage</div>
             <a href="javascript://" onClick={this.close} className="close">&#10005;</a>
         </div>
     }

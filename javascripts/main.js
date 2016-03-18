@@ -18,7 +18,7 @@ var App = React.createClass({
     render: function() {
         return <div className="app">
             <canvas id="canvas-overlay" ref="background"></canvas>
-            <div className="canvas-label">Code Rain v0.0.1</div>
+            <div className="canvas-label">Code Rain v0.0.2</div>
             <div className="body">
                 <Term> </Term>
             </div>
