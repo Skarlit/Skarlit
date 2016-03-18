@@ -1,12 +1,12 @@
 import React from "react"
-import { Router, Route, Link, RouteContext, IndexRoute} from 'react-router'
-import {Motion, spring} from 'react-motion';
-import NavBar from "./component/navbar.js";
-import Exp from "./view/experiments.js";
-import Bio from "./view/bio.js";
-import Contact from "./view/contact";
-import Index from "./view/index.js";
-import Animator from "./utils/sync_animator.js";
+//import { Router, Route, Link, RouteContext, IndexRoute} from 'react-router'
+//import {Motion, spring} from 'react-motion';
+//import NavBar from "./component/navbar.js";
+//import Exp from "./view/experiments.js";
+//import Bio from "./view/bio.js";
+//import Contact from "./view/contact";
+//import Index from "./view/index.js";
+//import Animator from "./utils/sync_animator.js";
 import {Rain} from "./view/background.js";
 import {Term} from "./view/term.js";
 
@@ -18,7 +18,6 @@ var App = React.createClass({
     render: function() {
         return <div className="app">
             <canvas id="canvas-overlay" ref="background"></canvas>
-            <div className="canvas-label">Code Rain v0.0.2</div>
             <div className="body">
                 <Term> </Term>
             </div>

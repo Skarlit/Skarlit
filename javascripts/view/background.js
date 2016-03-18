@@ -52,6 +52,12 @@ export function Rain () {
     var clock = new THREE.Clock();
     clock.start();
 
+    window.addEventListener('resize', function() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
 
     var render = function () {
         loopId = requestAnimationFrame( render );
@@ -82,14 +88,13 @@ function Matrix(w, h) {
         this.offsetTable[i] =  i / this.letterCount;
     }
 
-
     this.gridSize = 32;
     this.n = Math.ceil(this.h / this.gridSize);
     this.m = Math.ceil(this.w / this.gridSize);
     this.alphas = new Float32Array(this.n * this.m);
     this.offset = new Float32Array(this.n * this.m);
     this.vertices = new Float32Array(this.n * this.m * 3);
-    this.scannerNum = 200;
+    this.scannerNum = this.m * 2;
     this.depth = -5;
     for(var i = 0; i < this.n; i++) {
         for(var j = 0; j < this.m; j++) {
@@ -157,7 +162,7 @@ Matrix.prototype = {
         }
         if (this.count > this.skipFrame) {
             this.count = 0;
-            for(var i = 0; i < 100; i++) {
+            for(var i = 0; i < this.m; i++) {
                 offset[parseInt(offset.length * Math.random())] = this.offsetTable[parseInt(Math.random() * this.letterCount)];
             }
         }

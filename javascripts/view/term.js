@@ -78,14 +78,9 @@ var collapse = {
 
 
 var TermHead = React.createClass({
-    close: function() {
-        window.open('','_self');
-        window.close();
-    },
     render: function() {
         return <div id="term-head">
             <div className="title">Welcome to Ran Xie's Homepage</div>
-            <a href="javascript://" onClick={this.close} className="close">&#10005;</a>
         </div>
     }
 });
