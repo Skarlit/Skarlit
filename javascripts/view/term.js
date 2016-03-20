@@ -3,10 +3,9 @@ import $ from "jquery";
 
 var intro = `
   About Code Rain: \n
-    This is a experiment I did using THREE.JS. \n
+    Powered by THREE.JS. \n
     Bloom effect uses 9x9 gaussian blur filter with horizontal and vertical pass. \n
-    Since gaussian can be factor into x and y components two pass is O(n) compared to O(n^2) single pass. \n
-    Ported from https://github.com/Jam3/glsl-fast-gaussian-blur \n
+    2 passes are ported from https://github.com/Jam3/glsl-fast-gaussian-blur \n
 `
 
 export var Term = React.createClass({

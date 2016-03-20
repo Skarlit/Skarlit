@@ -41,17 +41,14 @@ function webpackConfig(opt) {
         },
         plugins: [
             new webpack.optimize.CommonsChunkPlugin('vendors', "vendors.js"),
-            new webpack.optimize.UglifyJsPlugin(minifiedOpt)
+            new webpack.optimize.UglifyJsPlugin(minifiedOpt),
+            new webpack.DefinePlugin({
+                'process.env': {
+                    'NODE_ENV': JSON.stringify(opt.production ? 'production' : 'development')
+                }
+            })
         ]
     };
-};
-
-var webPackServerConfig = {
-    // webpack-dev-server options
-
-    contentBase: ".",
-    // or: contentBase: "http://localhost/",
-    historyApiFallback: false
 };
 
 gulp.task('build', function() {
