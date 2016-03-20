@@ -1,38 +1,24 @@
 import React from "react";
 import $ from "jquery";
 
+var intro = `
+  About Code Rain: \n
+    This is a experiment I did using THREE.JS. \n
+    Bloom effect uses 9x9 gaussian blur filter with horizontal and vertical pass. \n
+    Since gaussian can be factor into x and y components two pass is O(n) compared to O(n^2) single pass. \n
+    Ported from https://github.com/Jam3/glsl-fast-gaussian-blur \n
+`
+
 export var Term = React.createClass({
     getInitialState: function() {
         return {initialized: false}
     },
     componentDidMount: function() {
         var $term = $(this.refs.term.getDOMNode());
-        var center = [window.innerWidth / 2, window.innerHeight / 2];
-        var tgtHeight = window.innerHeight * (window.innerHeight > window.innerWidth ?  0.6 : 0.6);
-        var tgtWidth = window.innerWidth * (window.innerHeight > window.innerWidth ?  0.8 : 0.6);
-        $({t: 0}).animate({
-            t: 1
-        }, {
-            duration: 300,
-            easing: 'linear',
-            step: function(t) {
-                $term.width(t*tgtWidth);
-                $term.height(t*tgtHeight);
-                $term.css('left', center[0] *(1 - t) + t * (window.innerWidth - tgtWidth) / 2)
-                    .css('top', center[1] * (1 - t) + t * (window.innerHeight - tgtHeight) / 2);
-            },
-            complete: function() {
-                this.setState({initialized: true});
-                window.onresize = function() {
-                    var h = window.innerHeight * (window.innerHeight > window.innerWidth ?  0.6 : 0.6);
-                    var w = window.innerWidth * (window.innerHeight > window.innerWidth ?  0.8 : 0.6);
-                    var left = (window.innerWidth - w) / 2;
-                    var top = (window.innerHeight - h) / 2;
-                    $term.css('left', (window.innerWidth - $term.width()) / 2)
-                        .css('top', (window.innerHeight - $term.height()) / 2);
-                }
-            }.bind(this)
-        })
+        $term.width(window.innerWidth < 400 ? window.innerWidth * 0.8 : 640);
+        $term.height(window.innerHeight < 400 ? window.innerHeight * 0.8 : 480);
+        $term.css('margin-left', -$term.width() / 2);
+        $term.css('margin-top', -$term.height() / 2);
     },
     componentWillUnmount: function() {
 
@@ -41,40 +27,14 @@ export var Term = React.createClass({
         $('#user-input').focus();
     },
     render: function() {
-        var termStyle;
-        var children = null;
-        if (this.state.initialized) {
-            var h = window.innerHeight * (window.innerHeight > window.innerWidth ?  0.6 : 0.6);
-            var w = window.innerWidth * (window.innerHeight > window.innerWidth ?  0.8 : 0.6);
-            var left = (window.innerWidth - w) / 2;
-            var top = (window.innerHeight - h) / 2;
-            termStyle = {
-                height: h,
-                width: w,
-                top: top,
-                left: left
-            };
-            children = [
-                <TermHead key="termhead" />,
-                <TermBody key="termbody" />
-            ]
-        } else {
-            termStyle = collapse;
-        }
-        return <div id="term" ref="term" style={termStyle}>
+        return <div id="term" ref="term">
             <div style={{position: "relative", width: "100%", height: "100%"}} onClick={this.focus.bind(this)}>
-                {children}
+                <TermHead key="termhead" />
+                <TermBody key="termbody" />
             </div>
         </div>
     }
 });
-
-var collapse = {
-    width: 0,
-    height: 0,
-    top: '50%',
-    left: '50%'
-}
 
 
 var TermHead = React.createClass({
@@ -91,7 +51,7 @@ var TermBody = React.createClass({
         el.scrollTop = el.scrollHeight;
     },
     getInitialState: function() {
-        return {userInput: '', loc: ['~'], dispStack: []}
+        return {userInput: '', loc: ['~'], dispStack: [intro]}
     },
     componentDidMount: function() {
         var man = new InputManager(this);
@@ -110,8 +70,13 @@ var TermBody = React.createClass({
 
 var Output = React.createClass({
     render: function() {
+        var text = this.props.output.split('\n');
+        var lines = [];
+        for(var i =0; i < text.length; i++) {
+            lines.push(<div className="line">{text[i]}</div>)
+        }
         return <div className="output">
-            {this.props.output}
+            {lines}
         </div>
     }
 });

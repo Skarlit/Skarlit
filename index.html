@@ -3,18 +3,29 @@
         <meta charset="utf-8" />
 
         <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300' rel='stylesheet' type='text/css'>
-        <link href="stylesheets/thirdparty/metro.min.css" rel="stylesheet" type="text/css">
         <script src="build/vendors.js"></script>
         <script src="build/main.js"></script>
         <style>
-            html, body {
+            #body, html, body {
                 font-family: 'Titillium Web', sans-serif !important;
                 margin: 0;
                 height: 100%;
                 width: 100%;
                 background-color: #222;
-                color: #55A850;
+                color: #F9FF71;
+                font-weight: bold;
+                text-shadow: 0 0px 20px #E9FF2E;
 
+            }
+
+            #bloom-toggle {
+                top: 13px;
+                right: 14px;
+                border: 1px solid;
+                border-radius: 4px;
+                padding: 10px 15px;
+                text-decoration: none;
+                color: #F9FF71;
             }
 
             body {
@@ -33,7 +44,7 @@
                 right: 20px;
                 bottom: 20px;
                 font-size: 28px;
-                color: #F01515;
+                color: #F9FF71;
             }
 
             .app-bar {
@@ -111,14 +122,18 @@
                 border-right-style: inset;
                 border-bottom-style: groove;
                 border-width: 5px;
-                border-color: #55A850;
+                border-color: #18ABAB;
                 border-radius: 4px;
-                background-color: rgba(0,0,0,0.8);
+                background-color: rgba(0,0,0,0.4);
+                width: 400px;
+                height: 400px;
+                left: 50%;
+                top: 50%;
             }
 
             #term-head {
                 position: relative;
-                background-color: #55A850;
+                background-color: #18ABAB;
             }
             #term-head .title {
                 position: relative;
@@ -128,6 +143,7 @@
                 font-size: 16px;
                 letter-spacing: 5px;
                 line-height: 30px;
+                text-shadow: none;
             }
             #term-head .close {
                 position: absolute;
@@ -159,7 +175,7 @@
             #user-input:focus{
                 outline: none;
                 color: transparent;
-                text-shadow: 0 0 0 #55A850;
+                text-shadow: 0 0 0 #18ABAB;
                 word-break: break-all;
             }
             #user-input{
@@ -167,7 +183,7 @@
             }
             #current-line .blinking-cursor {
                 position: relative;
-                background-color: #55A850;
+                background-color: #18ABAB;
                 display: inline-block;
                 height: 16px;
                 width: 8px;
@@ -176,7 +192,8 @@
         </style>
     </head>
 <body>
+ <div id="body">
 
-<script src="javascripts/thirdparty/metro.min.js"></script>
+ </div>
 </body>
 </html>

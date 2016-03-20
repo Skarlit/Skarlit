@@ -18,9 +18,7 @@ var App = React.createClass({
     render: function() {
         return <div className="app">
             <canvas id="canvas-overlay" ref="background"></canvas>
-            <div className="body">
-                <Term> </Term>
-            </div>
+            <Term />
         </div>
     }
 });
@@ -51,7 +49,7 @@ window.onload = function() {
 
     React.render((
        <App />
-    ), document.body, function() {
+    ), document.getElementById('body'), function() {
         Rain().start();
     })
 };
