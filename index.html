@@ -1,7 +1,10 @@
 <html>
     <head>
+        <title>Ran Xie's Homepage</title>
         <meta charset="utf-8" />
-
+        <link rel="icon"
+              type="image/jpg, jpeg"
+              href="icon.jpg">
         <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300' rel='stylesheet' type='text/css'>
         <script src="build/vendors.js"></script>
         <script src="build/main.js"></script>
@@ -12,9 +15,9 @@
                 height: 100%;
                 width: 100%;
                 background-color: #222;
-                color: #F9FF71;
+                color:  rgba(126, 255, 42, 0.74);
                 font-weight: bold;
-                text-shadow: 0 0px 20px #E9FF2E;
+                text-shadow: 0 0px 20px rgba(137, 255, 46, 0.61);
 
             }
 
@@ -25,7 +28,8 @@
                 border-radius: 4px;
                 padding: 4px 6px;
                 text-decoration: none;
-                color: #F9FF71;
+                color: rgba(126, 255, 42, 0.74);
+                font-weight: bold;
                 font-size: 14px;
             }
 
@@ -45,7 +49,9 @@
                 right: 20px;
                 bottom: 20px;
                 font-size: 28px;
-                color: #F9FF71;
+                color: rgba(126, 255, 42, 0.74);
+                font-weight: bold;
+                text-shadow: 0 0px 20px rgba(137, 255, 46, 0.61);
             }
 
             .app-bar {
@@ -119,11 +125,9 @@
             #term {
                 overflow: hidden;
                 position: absolute;
-                border-left-style: groove;
-                border-right-style: inset;
-                border-bottom-style: groove;
+                border-style: solid;
                 border-width: 5px;
-                border-color: #18ABAB;
+                border-color: rgba(24, 171, 171, 0.57);
                 border-radius: 4px;
                 background-color: rgba(0,0,0,0.4);
                 width: 400px;
@@ -134,7 +138,8 @@
 
             #term-head {
                 position: relative;
-                background-color: #18ABAB;
+                background-color: rgba(24, 171, 171, 0.57);
+            ;
             }
             #term-head .title {
                 position: relative;
@@ -182,11 +187,24 @@
             }
             #current-line .blinking-cursor {
                 position: relative;
-                background-color: #18ABAB;
+                background-color: rgba(126, 255, 42, 0.74);
                 display: inline-block;
-                height: 16px;
+                height: 15px;
                 width: 8px;
-                top: 3px;
+                top: 4px;
+                -webkit-animation: cursor-blink 1s  infinite; /* Safari 4+ */
+                -moz-animation:    cursor-blink 1s  infinite; /* Fx 5+ */
+                -o-animation:      cursor-blink 1s  infinite; /* Opera 12+ */
+                animation:        cursor-blink  1s infinite; /* IE 10+, Fx 29+ */
+                animation-timing-function: linear;
+                animation-delay: 0s;
+            }
+
+            @keyframes cursor-blink {
+                0%   { opacity: 1; }
+                60%   {opacity: 1; }
+                61% {opacity: 0;}
+                100% { opacity: 0; }
             }
         </style>
     </head>
