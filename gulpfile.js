@@ -2,19 +2,12 @@ var gulp = require('gulp');
 var webpack = require('webpack');
 var util = require('gulp-util');
 var path = require('path');
-var express = require('express');
 var merge = require('merge');
-
-var algor = "javascripts/algorithm/";
+var WebpackDevServer = require('webpack-dev-server');
 
 var entry = {
-    main: [path.resolve(__dirname, "javascripts/main.js")],
-    vendors: ['react','react-router', 'three', 'jquery'],
-    treePrint: [path.resolve(__dirname, algor + 'tree_print/main.js')],
-    treePrint2: [path.resolve(__dirname, algor + 'tree_print_2/main.js')],
-    magicWand: [path.resolve(__dirname, algor + 'magic_wand/index.js')],
-    player: [path.resolve(__dirname, algor + 'filter/main.js')],
-    wordsplit: [path.resolve(__dirname, algor + 'SplitString/index.js')]
+    main: [path.resolve(__dirname, "index.js")],
+    vendors: ['three'],
 };
 
 function webpackConfig(opt) {
@@ -23,44 +16,68 @@ function webpackConfig(opt) {
     return  {
         entry: entry,
         output: {
-            path: path.resolve(__dirname, 'build'),
+            path: path.resolve(__dirname, 'assets'),
+            publicPath: "/assets/",
             filename: "[name].js"
         },
-        watch: (opt.production ? false : true),
-        external: {
-          "jquery": "jQuery"
+        resolve: {
         },
+        watch: (opt.production ? false : true),
         module: {
-            preloaders: [
-                {test: /\.js$/, exclude: /node_modules/, loader: "jsxhint-loader"}
-            ],
             loaders: [
-                {test: require.resolve("jquery"), loader: "expose?jQuery" },
-                {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
+                {test: /\.(gif|png|jpe?g|svg)$/i, loaders: [
+                  'file?hash=sha512&digest=hex&name=[hash].[ext]',
+                  'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                ]},
+                {test: /\.glsl$/, loader: 'webpack-glsl'},
+                {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader", query: {
+                  presets: ['es2015']
+                }}
             ]
         },
         plugins: [
-            new webpack.optimize.CommonsChunkPlugin('vendors', "vendors.js"),
+            new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: "vendors.js"}),
             new webpack.optimize.UglifyJsPlugin(minifiedOpt),
             new webpack.DefinePlugin({
                 'process.env': {
                     'NODE_ENV': JSON.stringify(opt.production ? 'production' : 'development')
                 }
+            }),
+            new webpack.ProvidePlugin({
+              THREE: 'three'
             })
         ]
     };
 };
 
 gulp.task('build', function() {
-    webpack(webpackConfig({production: false}) , function(err, stats) {
-        if(err) throw new util.PluginError("webpack", err);
-        util.log("[webpack]", stats.toString({
-            // output options
-        }));
-    });
-    var app = express();
-    app.use(express.static('.'));
-    app.listen(8080);
+  var config = webpackConfig({production: false});
+  // config.entry.main.unshift("webpack-dev-server/client?http://localhost:8080/");
+  var compiler = webpack(config, function(err, stats) {
+      if(err) throw new util.PluginError("webpack", err);
+      util.log("[webpack]", stats.toString({
+          // output options
+      }));
+  });
+
+  // var server = new WebpackDevServer(compiler, {
+  //   contentBase: ".",
+  //   // Can also be an array, or: contentBase: "http://localhost/",
+  //   historyApiFallback: false,
+  //   // Set this as true if you want to access dev server from arbitrary url.
+  //   // This is handy if you are using a html5 router.
+  //   compress: true,
+  //   // Set this if you want to enable gzip compression for assets
+  //   proxy: {
+  //   },
+  //   clientLogLevel: "info",
+  //   quiet: false,
+  //   noInfo: false,
+  //   // It's a required option.
+  //   publicPath: "/assets/",
+  //   headers: { "X-Custom-Header": "yes" },
+  //   stats: { colors: true }
+  // }).listen(8080);
 });
 
 
