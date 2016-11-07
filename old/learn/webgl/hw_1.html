@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Tweak</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/thirdparty/obsidian.css" media="screen">
+    <script src="../../javascripts/thirdparty/hightlight.min.js"></script>
+    <script src="../../javascripts/jquery-1.11.3.min.js"></script>
+    <script src="util/mv.js"></script>
+    <script src="util/initShaders.js"></script>
+    <script src="util/webgl-utils.js"></script>
+    <script src="../../javascripts/code.js"></script>
+    <script id="vs" type="v-shader">
+        attribute vec2 vPosition;
+        uniform float rot;
+        uniform float displace;
+        float angle;
+        void main() {
+            angle = sqrt(vPosition.x * vPosition.x + vPosition.y * vPosition.y); // factor
+            angle = displace * angle * rot +  (1.0 - displace) * rot;
+            gl_Position = vec4(
+                vPosition.x * cos(angle) - vPosition.y*sin(angle),
+                vPosition.x *sin(angle) + vPosition.y*cos(angle),
+                0.0,
+                1.0);
+        }
+    </script>
+    <script id="fs" type="f-shader">
+        precision mediump float;
+        void main() {
+           gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+        }
+    </script>
+    <style>
+        .control {
+            float: left;
+            box-sizing: border-box;
+            padding: 20px 30px;
+            width: 250px;
+        }
+        .control-panel {
+            width: 100%;
+            overflow: hidden;
+        }
+        .wrapper {
+            overflow: hidden;
+        }
+        #code {
+           float: left;
+            margin: 0 15px;
+        }
+        #canvas {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="control-panel">
+        <label class="control">
+            Subdivisions:
+            <input id="slice" type="range" min="0" max="10" step="1" value="0"/>
+            <span id="sliceStat">0</span>
+        </label>
+        <label class="control">
+            Rotation Radian:
+            <input id="rot" type="range" min="-3.14" max="3.14" step="0.01" value="0"/>
+            <span id="rotStat">0</span>
+        </label>
+        <label class="control">Include Middle Triangle?
+            <input id="includeMid" type="checkbox" />
+        </label>
+        <label class="control">Displace vertices?
+            <input id="displace" type="checkbox"  checked/>
+        </label>
+    </div>
+    <div class="wrapper">
+        <canvas id="canvas" height="480" width="640" style="display:block"></canvas>
+        <div id="code">
+
+        </div>
+    </div>
+    <script id="main">
+        var setting = {
+            includeMid: false,
+            division: 0,
+            displace: 1.0,
+            rot: 0
+        };
+
+        var gl;
+        var program;
+        var vertexBuffer;
+
+        function tesselate(p) {
+            var mid = new Array(6);
+            mid[0] = (p[0] + p[2]) / 2;
+            mid[1] = (p[1] + p[3]) / 2;
+            mid[2] = (p[0] + p[4]) / 2;
+            mid[3] = (p[1] + p[5]) / 2;
+            mid[4] = (p[2] + p[4]) / 2;
+            mid[5] = (p[3] + p[5]) / 2;
+
+            return mid;
+        }
+
+        // p = [ax,ay,bx, by, cx, cy]
+        //      0  1  2   3   4   5
+
+        // mid = [mid of a-b,  mid of a-c, mid of b-c]
+        function recursiveTesselate(n, p, vertexBuffer) {
+            if (n == 0) {vertexBuffer.push.apply(vertexBuffer, p) ;return;}
+            var mid = tesselate(p);
+            if (setting.includeMid) {
+                vertexBuffer.push.apply(vertexBuffer, mid);
+                recursiveTesselate(n-1, mid, vertexBuffer);
+            }
+            recursiveTesselate(n-1, [p[0], p[1], mid[0], mid[1], mid[2], mid[3]], vertexBuffer);
+            recursiveTesselate(n-1, [p[2], p[3], mid[0], mid[1], mid[4], mid[5]], vertexBuffer);
+            recursiveTesselate(n-1, [p[4], p[5], mid[4], mid[5], mid[2], mid[3]], vertexBuffer);
+        }
+
+        function renderData() {
+            vertexBuffer = [];
+            recursiveTesselate(setting.division, [-0.5, -0.5, 0, 0.5, 0.5, -0.5], vertexBuffer);
+            var bufferId = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+            gl.bufferData(gl.ARRAY_BUFFER,  new Float32Array(vertexBuffer), gl.STATIC_DRAW);
+            var vPosition = gl.getAttribLocation( program, "vPosition" );
+            gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
+            gl.enableVertexAttribArray( vPosition );
+            setUniform();
+            draw();
+        }
+
+        function setUniform() {
+            gl.uniform1f(program.rot, setting.rot);
+            gl.uniform1f(program.displace, setting.displace);
+        }
+
+        function draw() {
+            gl.clear( gl.COLOR_BUFFER_BIT );
+            gl.drawArrays( gl.TRIANGLES, 0, parseInt(vertexBuffer.length / 2));
+        }
+
+        function initControl () {
+            document.getElementById('slice').addEventListener('input', function(e) {
+                setting.division = e.target.value;
+                document.getElementById('sliceStat').textContent = e.target.value;
+                renderData();
+            });
+            document.getElementById('includeMid').addEventListener('click', function(e) {
+                setting.includeMid = !!e.target.checked;
+                renderData();
+            });
+            document.getElementById('rot').addEventListener('input', function(e) {
+                document.getElementById('rotStat').textContent = e.target.value;
+                setting.rot = e.target.value;
+                setUniform();
+                draw();
+            });
+            document.getElementById('displace').addEventListener('click', function(e) {
+                setting.displace = !!e.target.checked ? 1.0 : 0.0;  // true/false
+                setUniform();
+                draw();
+            })
+        }
+
+        window.onload = function () {
+            canvas = document.getElementById( "canvas" );
+            gl = WebGLUtils.setupWebGL( canvas );
+            if ( !gl ) { alert( "WebGL isn't available" ); }
+            gl.viewport( 0, 0, canvas.width, canvas.height );
+            gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
+            program = initShaders( gl, "vs", "fs" );
+            gl.useProgram( program );
+            program.displace = gl.getUniformLocation(program, "displace");
+            program.rot =gl.getUniformLocation(program, "rot");
+            renderData();
+            initControl();
+            // Show code;
+            Code.render(document.getElementById('code'),
+                    document.getElementById('vs').textContent, 'c++');
+            Code.render(document.getElementById('code'),
+                    document.getElementById('fs').textContent, 'c++');
+            Code.render(document.getElementById('code'),
+                    document.getElementById('main').textContent, 'js');
+            $('pre code').each(function(i, block) {
+                hljs.highlightBlock(block);
+            });
+        };
+    </script>
+
+</body>
+</html>
