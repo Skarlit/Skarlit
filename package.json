@@ -2,26 +2,29 @@
   "name": "skarlit",
   "private": true,
   "dependencies": {
-    "brace": "^0.5.1",
-    "expose-loader": "^0.7.1",
-    "jquery": "^2.1.4",
-    "merge": "^1.2.0",
-    "react": "^0.13.3",
-    "react-ace": "^2.6.0",
-    "react-motion": "^0.3.1",
-    "react-router": "^1.0.0-rc1",
-    "react-tap-event-plugin": "^0.1.7",
-    "three": "^0.74.0"
+    "axios": "^0.16.1",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "react-router": "^4.1.1",
+    "redux": "^3.6.0",
+    "reselect": "^3.0.0",
+    "three": "^0.85.0",
+    "tween.js": "^16.6.0"
   },
   "devDependencies": {
-    "babel-core": "^5.8.24",
-    "babel-loader": "^5.3.2",
-    "express": "^4.13.3",
-    "gulp": "^3.9.0",
-    "gulp-util": "^3.0.6",
-    "jsxhint-loader": "^0.2.0",
-    "path": "^0.12.7",
-    "webpack": "^1.12.1",
-    "webpack-dev-server": "^1.11.0"
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base-hf": "^1.10.2",
+    "eslint-config-google": "^0.7.1",
+    "eslint-plugin-import": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.8",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.4"
   }
 }

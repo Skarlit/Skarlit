@@ -1,5 +1,4 @@
 import THREE from "three";
-import $ from "jquery";
 
 var vS = `
     attribute float alphas;
@@ -109,10 +108,10 @@ export function Rain () {
     bloomToggle.textContent = bloom ?  "Bloom off" : "Bloom on" ;
     bloomToggle.style["position"] = "absolute";
     bloomToggle.id = "bloom-toggle";
-    $(bloomToggle).on('click', function() {
-        bloom = !bloom;
-        bloomToggle.textContent =bloom ?  "Bloom off" : "Bloom on" ;
-    });
+    // $(bloomToggle).on('click', function() {
+    //     bloom = !bloom;
+    //     bloomToggle.textContent =bloom ?  "Bloom off" : "Bloom on" ;
+    // });
     document.body.appendChild(bloomToggle);
 
 
@@ -191,7 +190,7 @@ export function Rain () {
     window.addEventListener('resize', function() {
         resizeCallbackId && window.clearTimeout(resizeCallbackId);
         loopId && window.cancelAnimationFrame(loopId);
-        bloomToggle && $(bloomToggle).off('click');
+        // bloomToggle && $(bloomToggle).off('click');
         resizeCallbackId = window.setTimeout(function() {
             Rain().start();
         }, 400);
@@ -268,7 +267,7 @@ function Matrix(w, h) {
     var tex = THREE.ImageUtils.loadTexture('../img/alphabet.png');
     tex.flipY = false;
     var uniforms = {
-        color: { type: "c", value: new THREE.Color( 0x0066ff ) },
+        color: { type: "c", value: new THREE.Color( 0xaa66ff ) },
         texture: { type: "t", value: tex}
     };
 
